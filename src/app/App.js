@@ -19,6 +19,8 @@ define([
 
     'esri/dijit/Print',
 
+    'app/MapController',
+    'app/OpacitySlider',
     'app/config'
 ], function(
     template,
@@ -41,6 +43,8 @@ define([
 
     Print,
 
+    MapController,
+    OpacitySlider,
     config
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
@@ -76,37 +80,38 @@ define([
             // set version number
             this.version.innerHTML = config.version;
 
-            this.initMap();
+            MapController.init({
+                mapDiv: this.mapDiv
+            });
+
+            MapController.addLayerAndMakeVisible({
+                    url: config.urls.boundaries,
+                    id: 'boundaries',
+                    serviceType: 'dynamic'
+                });
 
             this.childWidgets.push(
+                MapController,
                 new SideBarToggler({
                     sidebar: this.sideBar,
-                    map: this.map,
+                    map: MapController.map,
                     centerContainer: this.centerContainer
                 }, this.sidebarToggle),
                 new FindAddress({
-                    map: this.map,
+                    map: MapController.map,
                     apiKey: config.apiKey
                 }, this.geocodeNode),
                 new MagicZoom({
-                    map: this.map,
+                    map: MapController.map,
                     mapServiceURL: config.urls.vector,
                     searchLayerIndex: 4,
                     searchField: 'NAME',
-                    placeHolder: 'place name...',
+                    placeHolder: 'point of interest',
                     maxResultsToDisplay: 10,
                     'class': 'first'
                 }, this.gnisNode),
-                new MagicZoom({
-                    map: this.map,
-                    mapServiceURL: config.urls.vector,
-                    searchLayerIndex: 1,
-                    searchField: 'NAME',
-                    placeHolder: 'city name...',
-                    maxResultsToDisplay: 10
-                }, this.cityNode),
                 this.printer = new Print({
-                    map: this.map,
+                    map: MapController.map,
                     url: config.exportWebMapUrl,
                     templates: [{
                         label: 'Portrait (PDF)',
@@ -123,7 +128,10 @@ define([
                             legendLayers: []
                         }
                     }]
-                }, this.printDiv)
+                }, this.printDiv),
+                new OpacitySlider({
+                    map: MapController.map
+                }, this.sliderNode)
             );
 
             this.inherited(arguments);
@@ -145,24 +153,6 @@ define([
             });
 
             this.inherited(arguments);
-        },
-        initMap: function() {
-            // summary:
-            //      Sets up the map
-            console.info('app.App::initMap', arguments);
-
-            this.map = new BaseMap(this.mapDiv, {
-                useDefaultBaseMap: false,
-                showAttribution: false
-            });
-
-            this.childWidgets.push(
-                new BaseMapSelector({
-                    map: this.map,
-                    id: 'claro',
-                    position: 'TR'
-                })
-            );
         }
     });
 });

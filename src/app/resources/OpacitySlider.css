@@ -1,0 +1,9 @@
+.opacity-slider .pull-bottom{
+    bottom: 0;
+    position: absolute;
+}
+
+.opacity-slider .slider-label{
+    font-size: 9px;
+    margin: 3px 5px;
+}
