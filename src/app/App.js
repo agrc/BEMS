@@ -4,13 +4,11 @@ define([
     'dojo/_base/declare',
     'dojo/_base/array',
 
-    'dojo/dom',
     'dojo/dom-style',
 
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
-    'dijit/registry',
 
     'agrc/widgets/map/BaseMap',
     'agrc/widgets/map/BaseMapSelector',
@@ -21,25 +19,18 @@ define([
 
     'esri/dijit/Print',
 
-    './config',
-    './Identify',
-
-
-    'dijit/layout/BorderContainer',
-    'dijit/layout/ContentPane'
+    'app/config'
 ], function(
     template,
 
     declare,
     array,
 
-    dom,
     domStyle,
 
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
-    registry,
 
     BaseMap,
     BaseMapSelector,
@@ -50,8 +41,7 @@ define([
 
     Print,
 
-    config,
-    Identify
+    config
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -171,8 +161,7 @@ define([
                     map: this.map,
                     id: 'claro',
                     position: 'TR'
-                }),
-                new Identify({map: this.map})
+                })
             );
         }
     });

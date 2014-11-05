@@ -1,8 +1,8 @@
 {
-    "name": "Atlas.app",
-    "version": "2.3.1",
+    "name": "BEMS",
+    "version": "0.1.0",
     "main": "main",
-    "description": "AGRC Boilerplate",
-    "homepage": "https://github.com/agrc/AGRCJavaScriptProjectBoilerPlate",
+    "description": "BEMS",
+    "homepage": "https://github.com/agrc/BEMS",
     "dojoBuild": "app.profile.js"
 }

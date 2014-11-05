@@ -49,6 +49,18 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        amdcheck: {
+            main: {
+                options: {
+                    removeUnusedDependencies: false
+                },
+                files: [{
+                    src: [
+                        'src/app/**/*.js'
+                    ]
+                }]
+            }
+        },
         bump: {
             options: {
                 files: bumpFiles,
@@ -78,7 +90,12 @@ module.exports = function(grunt) {
         },
         copy: {
             main: {
-                files: [{expand: true, cwd: 'src/', src: ['*.html'], dest: 'dist/'}]
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['*.html'],
+                    dest: 'dist/'
+                }]
             }
         },
         dojo: {
@@ -105,7 +122,7 @@ module.exports = function(grunt) {
         },
         esri_slurp: {
             options: {
-                version: '3.10'
+                version: '3.11'
             },
             dev: {
                 options: {
@@ -148,7 +165,10 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files: jshintFiles,
+            main: {
+                // must use src for newer to work
+                src: jshintFiles
+            },
             options: {
                 jshintrc: '.jshintrc'
             }
@@ -209,7 +229,7 @@ module.exports = function(grunt) {
         watch: {
             jshint: {
                 files: jshintFiles,
-                tasks: ['jshint', 'jasmine:main:build']
+                tasks: ['newer:jshint:main', 'jasmine:main:build']
             },
             src: {
                 files: jshintFiles.concat(otherFiles),
@@ -230,7 +250,8 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('default', [
         'jasmine:main:build',
-        'jshint',
+        'newer:jshint:main',
+        'newer:amdcheck:main',
         'if-missing:esri_slurp:dev',
         'connect',
         'watch'
