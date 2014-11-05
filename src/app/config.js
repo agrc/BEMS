@@ -22,11 +22,11 @@ define(['dojo/has', 'esri/config'], function (has, esriConfig) {
 
         // exportWebMapUrl: String
         //      print task url
-        exportWebMapUrl: '//mapserv.utah.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
+        exportWebMapUrl: '/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
 
         urls: {
-            vector: '//mapserv.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
-            boundaries: '//localhost/arcgis/rest/services/BEMS/Boundaries/MapServer'
+            vector: 'http://mapserv.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
+            boundaries: 'http://localhost/arcgis/rest/services/BEMS/Boundaries/MapServer'
         },
 
         topics: {
