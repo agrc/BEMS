@@ -1,20 +1,14 @@
 define([
     'dojo/_base/lang',
     'dojo/_base/array',
-    'dojo/_base/Color',
-
-    'dojo/dom-construct',
 
     'dojo/topic',
 
     'esri/graphic',
-    'esri/lang',
 
     'esri/layers/ArcGISDynamicMapServiceLayer',
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/layers/FeatureLayer',
-
-    'esri/symbols/SimpleLineSymbol',
 
     'agrc/widgets/map/BaseMap',
     'agrc/widgets/map/BaseMapSelector',
@@ -23,20 +17,14 @@ define([
 ], function(
     lang,
     array,
-    Color,
-
-    domConstruct,
 
     topic,
 
     Graphic,
-    esriLang,
 
     ArcGISDynamicMapServiceLayer,
     ArcGISTiledMapServiceLayer,
     FeatureLayer,
-
-    LineSymbol,
 
     BaseMap,
     BaseMapSelector,

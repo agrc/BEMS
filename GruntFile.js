@@ -251,7 +251,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'jasmine:main:build',
         'newer:jshint:main',
-        'newer:amdcheck:main',
+        'amdcheck:main',
         'if-missing:esri_slurp:dev',
         'connect',
         'watch'
