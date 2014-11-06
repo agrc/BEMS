@@ -22,7 +22,9 @@ define([
     'app/MapController',
     'app/OpacitySlider',
     'app/config',
-    'app/ResultsGrid'
+    'app/ResultsGrid',
+
+    'app/data/serviceTypes'
 ], function(
     template,
 
@@ -47,7 +49,9 @@ define([
     MapController,
     OpacitySlider,
     config,
-    ResultsGrid
+    ResultsGrid,
+
+    serviceTypes
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -87,10 +91,10 @@ define([
             });
 
             MapController.addLayerAndMakeVisible({
-                    url: config.urls.boundaries,
-                    id: 'boundaries',
-                    serviceType: 'dynamic'
-                });
+                url: config.urls.boundaries,
+                id: 'boundaries',
+                serviceType: 'dynamic'
+            });
 
             this.childWidgets.push(
                 MapController,
@@ -145,7 +149,7 @@ define([
             console.log('app.App::startup', arguments);
 
             var that = this;
-            array.forEach(this.childWidgets, function (widget) {
+            array.forEach(this.childWidgets, function(widget) {
                 console.log(widget.declaredClass);
                 that.own(widget);
                 widget.startup();
@@ -153,6 +157,12 @@ define([
 
             this.printer.on('print-complete', function() {
                 domStyle.set(that.popupBlurb, 'display', 'block');
+            });
+
+            MapController.addLayerFilter({
+                id: 'boundaries',
+                data: serviceTypes,
+                node: this.filterNode
             });
 
             this.inherited(arguments);

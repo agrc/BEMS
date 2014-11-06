@@ -15,3 +15,6 @@
 .results-grid .dgrid-row.dgrid-selected:hover {
     background-color: #AEC3D6;
 }
+.grid-identify-container .results-grid{
+    height: 150px;
+}

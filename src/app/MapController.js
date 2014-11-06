@@ -13,7 +13,8 @@ define([
     'agrc/widgets/map/BaseMap',
     'agrc/widgets/map/BaseMapSelector',
 
-    'app/config'
+    'app/config',
+    'app/LayerFilter'
 ], function(
     lang,
     array,
@@ -29,7 +30,8 @@ define([
     BaseMap,
     BaseMapSelector,
 
-    config
+    config,
+    LayerFilter
 ) {
     return {
         // description:
@@ -83,7 +85,7 @@ define([
                     lang.hitch(this, 'addLayerAndMakeVisible')),
                 topic.subscribe(config.topics.map.layerOpacity,
                     lang.hitch(this, 'updateOpacity')),
-                this.map.on('click', lang.hitch(this, 'query'))
+                this.map.on('click', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
             );
         },
         addLayerAndMakeVisible: function(props) {
@@ -203,6 +205,29 @@ define([
             // mouseEvent - mouse over event
             console.log('app.MapController::showPopup', arguments);
         },
+        addLayerFilter: function(params) {
+            // summary:
+            //      description
+            // params
+            console.log('app.MapController::addLayerFilter', arguments);
+
+            var layer = array.filter(this.layers, function(layer) {
+                return layer.id === params.id;
+            })[0];
+
+            if (!layer) {
+                console.error('cant find layer with id: ' + params.id);
+                return;
+            }
+
+            this.childWidgets.push(
+                new LayerFilter({
+                    layer: layer.layer,
+                    values: params.data,
+                    filter: config.filters.serviceType
+                }, params.node)
+            );
+        },
         destroy: function() {
             // summary:
             //      destroys all handles
@@ -216,13 +241,20 @@ define([
                 widget.destroy();
             }, this);
         },
-        query: function(evt) {
+        query: function(layerId, evt) {
             // summary:
             //      fires when a click on the layer occurs
             // evt
             console.log('app.MapControl::query', arguments);
 
-            topic.publish(config.topics.events.search, evt.mapPoint);
+            var layer = array.filter(this.layers, function(layer) {
+                return layer.id === layerId;
+            })[0].layer;
+
+            topic.publish(config.topics.events.search, {
+                point: evt.mapPoint,
+                layer: layer
+            });
         }
     };
 });

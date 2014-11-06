@@ -9,6 +9,7 @@
 @import '../../agrc/resources/locate/MagicZoom.css';
 @import 'OpacitySlider.css';
 @import 'ResultsGrid.css';
+@import 'LayerFilter.css';
 
 body, html, .app {
     width: 100%;
@@ -119,3 +120,6 @@ body, html, .app {
     opacity: 1;
 }
 
+.form-control{
+    width: 95%;
+}

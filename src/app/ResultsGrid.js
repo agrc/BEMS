@@ -94,10 +94,10 @@ define([
             this.query.returnGeometry = true;
             this.query.outFields = ['SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME'];
         },
-        search: function(point) {
+        search: function(args) {
             // summary:
             //      queries the data and displays features in a grid
-            // point - the map point click geometry
+            // args: { point - the map point click geometry, layer - the layer being queried }
             console.log('app.ResultsGrid::search', arguments);
 
             domClass.remove(this.domNode, 'hide');
@@ -123,7 +123,10 @@ define([
             }
 
             var self = this;
-            this.query.geometry = point;
+            this.query.geometry = args.point;
+            if (args.layer.layerDefinitions) {
+                this.query.where = args.layer.layerDefinitions[0];
+            }
 
             this.qt.execute(this.query, function(results) {
                 var data = array.map(results.features, function(feature) {

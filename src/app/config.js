@@ -29,6 +29,10 @@ define(['dojo/has', 'esri/config'], function (has, esriConfig) {
             boundaries: '/arcgis/rest/services/BEMS/Boundaries/MapServer'
         },
 
+        filters: {
+            serviceType: 'SERVICE_TYPE = \'{0}\''
+        },
+
         topics: {
             map: {
                 enableLayer: 'app.addLayer',
