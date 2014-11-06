@@ -26,7 +26,7 @@ define(['dojo/has', 'esri/config'], function (has, esriConfig) {
 
         urls: {
             vector: 'http://mapserv.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
-            boundaries: 'http://localhost/arcgis/rest/services/BEMS/Boundaries/MapServer'
+            boundaries: '/arcgis/rest/services/BEMS/Boundaries/MapServer'
         },
 
         topics: {
