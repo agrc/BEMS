@@ -17,11 +17,10 @@
             'dojox',
             'esri',
             'ijit',
+            'dgrid',
+            'put-selector',
+            'xstyle',
             {
-                name: 'proj4',
-                location: './proj4js',
-                main: 'proj4'
-            },{
                 name: 'jquery',
                 location: './jquery/dist',
                 main: 'jquery'

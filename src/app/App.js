@@ -21,7 +21,8 @@ define([
 
     'app/MapController',
     'app/OpacitySlider',
-    'app/config'
+    'app/config',
+    'app/ResultsGrid'
 ], function(
     template,
 
@@ -45,7 +46,8 @@ define([
 
     MapController,
     OpacitySlider,
-    config
+    config,
+    ResultsGrid
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -131,7 +133,8 @@ define([
                 }, this.printDiv),
                 new OpacitySlider({
                     map: MapController.map
-                }, this.sliderNode)
+                }, this.sliderNode),
+                new ResultsGrid({}, this.resultsGridDiv)
             );
 
             this.inherited(arguments);

@@ -81,7 +81,8 @@ define([
                 topic.subscribe(config.topics.map.enableLayer,
                     lang.hitch(this, 'addLayerAndMakeVisible')),
                 topic.subscribe(config.topics.map.layerOpacity,
-                    lang.hitch(this, 'updateOpacity'))
+                    lang.hitch(this, 'updateOpacity')),
+                this.map.on('click', lang.hitch(this, 'query'))
             );
         },
         addLayerAndMakeVisible: function(props) {
@@ -123,7 +124,7 @@ define([
 
                 lyr = new LayerClass(props.url, props);
                 lyr.on('click', lang.hitch(this, 'highlight'));
-                // lyr.on('click', lang.hitch(this, 'showPopup'));
+                //lyr.on('click', lang.hitch(this, 'query'));
 
                 this.map.addLayer(lyr);
                 this.map.addLoaderToLayer(lyr);
@@ -213,6 +214,14 @@ define([
             array.forEach(this.childWidgets, function(widget) {
                 widget.destroy();
             }, this);
+        },
+        query: function(evt) {
+            // summary:
+            //      fires when a click on the layer occurs
+            // evt
+            console.log('app.MapControl::query', arguments);
+
+            topic.publish(config.topics.events.search, evt.mapPoint);
         }
     };
 });

@@ -33,6 +33,9 @@ define(['dojo/has', 'esri/config'], function (has, esriConfig) {
             map: {
                 enableLayer: 'app.addLayer',
                 layerOpacity: 'app.layerOpacityChange'
+            },
+            events: {
+                search: 'app.search'
             }
         }
     };

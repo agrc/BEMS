@@ -1,0 +1,17 @@
+.results-grid {
+    height: 100%;
+    background-color: #fff;
+    border: none;
+}
+.results-grid .dgrid-scroller .dgrid-cell {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+.results-grid .dgrid-row:hover {
+    background-color: #fafafa;
+}
+.results-grid .dgrid-row.dgrid-selected:hover {
+    background-color: #AEC3D6;
+}

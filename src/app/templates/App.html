@@ -1,33 +1,38 @@
 <div>
-    <div class='title-container'>
-        <h1>
-            <span class='title'>BEMS</span>
-            <a data-dojo-attach-point='version' class='version' href='ChangeLog.html'></a>
-        </h1>
-        <img src="app/resources/agrc_logo.jpg" alt="agrc logo">
-    </div>
-    <div data-dojo-attach-point='sideBar'
-        class='side-bar-container container-with-border'>
-        <div class="side-bar-padder"> <!-- required for side bar toggle widget -->
-            Data and services provided by <a href="http://gis.utah.gov">Utah AGRC</a>
-            <div data-dojo-attach-point="printDiv"></div>
-            <div data-dojo-attach-point='popupBlurb'
-                class='alert alert-info'>
-                You may need to disable pop-up blockers to open the printout.
-            </div>
-
-            <h4>Find an Address</h4>
-            <div data-dojo-attach-point='geocodeNode'></div>
-
-            <h4>Find a Point of Interest</h4>
-            <div data-dojo-attach-point='gnisNode'></div>
-            <h4>Boundary Transparency</h4>
-            <div data-dojo-attach-point='sliderNode'></div>
+    <div>
+        <div class='title-container'>
+            <h1>
+                <span class='title'>EMS Boundaries</span>
+                <a data-dojo-attach-point='version' class='version' href='ChangeLog.html'></a>
+            </h1>
+            <img src="app/resources/agrc_logo.jpg" alt="agrc logo">
         </div>
-    </div>
-    <div data-dojo-attach-point='centerContainer'
-        class='center-container container-with-border'>
-        <div data-dojo-attach-point='sidebarToggle'></div>
-        <div data-dojo-attach-point='mapDiv'></div>
+        <div data-dojo-attach-point='sideBar' class='side-bar-container container-with-border'>
+            <div class="side-bar-padder">
+                <!-- required for side bar toggle widget -->
+                Data and services provided by <a href="http://gis.utah.gov">Utah AGRC</a>
+                <div data-dojo-attach-point="printDiv"></div>
+                <div data-dojo-attach-point='popupBlurb' class='alert alert-info'>
+                    You may need to disable pop-up blockers to open the printout.
+                </div>
+
+                <h4>Find an Address</h4>
+                <div data-dojo-attach-point='geocodeNode'></div>
+
+                <h4>Find a Point of Interest</h4>
+                <div data-dojo-attach-point='gnisNode'></div>
+                <h4>Boundary Transparency</h4>
+                <div data-dojo-attach-point='sliderNode'></div>
+            </div>
+        </div>
+        <div data-dojo-attach-point='centerContainer' class='center-container container-with-border'>
+            <div data-dojo-attach-point='sidebarToggle'></div>
+            <div data-dojo-attach-point='mapDiv' class='map-div'></div>
+            <div data-dojo-attach-point='gridIdentifyContainer'
+            class='grid-identify-container'>
+            <div data-dojo-attach-point="resultsGridDiv"></div>
+            <div data-dojo-attach-point="identifyPaneDiv"></div>
+        </div>
+        </div>
     </div>
 </div>
