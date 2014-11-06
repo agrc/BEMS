@@ -58,7 +58,8 @@ define([
             this.childWidgets = [];
 
             this.map = new BaseMap(this.mapDiv, {
-                defaultBaseMap: 'Lite'
+                defaultBaseMap: 'Lite',
+                router: true
             });
 
             this.childWidgets.push(
