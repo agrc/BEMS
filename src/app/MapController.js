@@ -60,7 +60,8 @@ define([
             this.childWidgets = [];
 
             this.map = new BaseMap(this.mapDiv, {
-                defaultBaseMap: 'Lite',
+                useDefaultExtent: true,
+                useDefaultBaseMap: false,
                 router: true
             });
 
@@ -68,7 +69,8 @@ define([
                 new BaseMapSelector({
                     map: this.map,
                     id: 'claro',
-                    position: 'TR'
+                    position: 'TR',
+                    defaultThemeLabel: 'Lite'
                 }));
 
             this.layers = [];

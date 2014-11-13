@@ -10,8 +10,6 @@ define([
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
 
-    'agrc/widgets/map/BaseMap',
-    'agrc/widgets/map/BaseMapSelector',
     'agrc/widgets/locate/FindAddress',
     'agrc/widgets/locate/MagicZoom',
 
@@ -37,8 +35,6 @@ define([
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
 
-    BaseMap,
-    BaseMapSelector,
     FindAddress,
     MagicZoom,
 
