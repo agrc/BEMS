@@ -1,6 +1,7 @@
 define([
     'dojo/_base/lang',
     'dojo/_base/array',
+    'dojo/_base/Color',
 
     'dojo/topic',
 
@@ -10,6 +11,8 @@ define([
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/layers/FeatureLayer',
 
+    'esri/symbols/SimpleLineSymbol',
+
     'agrc/widgets/map/BaseMap',
     'agrc/widgets/map/BaseMapSelector',
 
@@ -18,6 +21,7 @@ define([
 ], function(
     lang,
     array,
+    Color,
 
     topic,
 
@@ -26,6 +30,8 @@ define([
     ArcGISDynamicMapServiceLayer,
     ArcGISTiledMapServiceLayer,
     FeatureLayer,
+
+    LineSymbol,
 
     BaseMap,
     BaseMapSelector,
@@ -73,6 +79,8 @@ define([
                     defaultThemeLabel: 'Lite'
                 }));
 
+            this.symbol = new LineSymbol(LineSymbol.STYLE_SOLID, new Color('#F012BE'), 3);
+
             this.layers = [];
 
             this.setUpSubscribes();
@@ -87,6 +95,10 @@ define([
                     lang.hitch(this, 'addLayerAndMakeVisible')),
                 topic.subscribe(config.topics.map.layerOpacity,
                     lang.hitch(this, 'updateOpacity')),
+                topic.subscribe(config.topics.map.highlight,
+                    lang.hitch(this, 'highlight')),
+                topic.subscribe(config.topics.map.zoom,
+                    lang.hitch(this, 'zoom')),
                 this.map.on('click', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
             );
         },
@@ -178,17 +190,25 @@ define([
                 widget.startup();
             }, this);
         },
-        highlight: function(evt) {
+        highlight: function(geometry) {
             // summary:
             //      adds the clicked shape geometry to the graphics layer
             //      highlighting it
-            // evt - mouse click event
+            // geometry - graphic topic publish
             console.log('app.MapController::highlight', arguments);
 
             this.clearGraphic(this.graphic);
 
-            this.graphic = new Graphic(evt.graphic.geometry, this.symbol);
+            this.graphic = new Graphic(geometry, this.symbol);
             this.map.graphics.add(this.graphic);
+        },
+        zoom: function(geometry) {
+            // summary:
+            //      zoom to a geometry
+            // geometry
+            console.log('app.MapController::zoom', arguments);
+
+            this.map.setExtent(geometry.getExtent(), true);
         },
         clearGraphic: function(graphic) {
             // summary:

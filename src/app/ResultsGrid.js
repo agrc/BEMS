@@ -15,6 +15,7 @@ define([
     'dijit/_TemplatedMixin',
 
     'dgrid/OnDemandGrid',
+    'dgrid/Selection',
 
     'esri/tasks/QueryTask',
     'esri/tasks/query',
@@ -37,6 +38,7 @@ define([
     _TemplatedMixin,
 
     Grid,
+    Selection,
 
     QueryTask,
     Query,
@@ -92,7 +94,7 @@ define([
             this.query = new Query();
 
             this.query.returnGeometry = true;
-            this.query.outFields = ['SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME'];
+            this.query.outFields = ['OBJECTID', 'SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME'];
         },
         search: function(args) {
             // summary:
@@ -106,20 +108,35 @@ define([
                 this.grid.store.data = null;
                 this.grid.refresh();
             } else {
-                this.grid = new(declare([Grid]))({
+                this.grid = new(declare([Grid, Selection]))({
                     bufferRows: Infinity,
                     store: this.store,
                     columns: {
+                        id: 'id',
                         name: 'Boundary Name',
                         service: 'Type of Service',
                         level: 'Level of Service',
                         geometry: 'shape'
-                    }
+                    },
+                    selectionMode: 'single'
                 }, this.domNode);
+
+                this.grid.on('dgrid-select', function(events){
+
+                    var row = events.rows[0];
+                    if(!row)
+                    {
+                        return;
+                    }
+
+                    topic.publish(config.topics.map.highlight, row.data.geometry);
+                    topic.publish(config.topics.map.zoom, row.data.geometry);
+                });
 
                 this.grid.startup();
 
                 this.grid.styleColumn('geometry', 'display: none;');
+                this.grid.styleColumn('id', 'display: none;');
             }
 
             var self = this;
@@ -132,6 +149,7 @@ define([
                 var data = array.map(results.features, function(feature) {
                     return {
                         // property names used here match those used when creating the dgrid
+                        'id': feature.attributes.OBJECTID,
                         'name': feature.attributes.NAME,
                         'service': feature.attributes.SERVICE_TYPE,
                         'level': feature.attributes.SERVICE_LEVEL,

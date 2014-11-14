@@ -8,6 +8,7 @@
     white-space: nowrap;
     border: none;
     border-bottom: 1px solid #ddd;
+    cursor: default;
 }
 .results-grid .dgrid-row:hover {
     background-color: #fafafa;
