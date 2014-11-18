@@ -18,15 +18,13 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
 
         // apiKey: String
         //      The api key used for services on api.mapserv.utah.gov
-        apiKey: '', // acquire at developer.mapserv.utah.gov
-
-        // exportWebMapUrl: String
-        //      print task url
-        exportWebMapUrl: '/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
+        //      acquire at developer.mapserv.utah.gov
+        apiKey: '',
 
         urls: {
             vector: 'http://mapserv.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
-            boundaries: '/arcgis/rest/services/BEMS/Boundaries/MapServer/0'
+            boundaries: 'http://localhost/arcgis/rest/services/BEMS/Boundaries/MapServer/0',
+            exportWebMap: '/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'
         },
 
         filters: {
@@ -49,10 +47,12 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
 
     if (has('agrc-api-key') === 'prod') {
         // mapserv.utah.gov
-        window.AGRC.apiKey = 'AGRC-A94B063C533889';
+        window.AGRC.apiKey = 'AGRC-810ECA1C598895';
+        window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://mapserv.utah.gov');
     } else if (has('agrc-api-key') === 'stage') {
         // test.mapserv.utah.gov
         window.AGRC.apiKey = 'AGRC-AC122FA9671436';
+        window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://test.mapserv.utah.gov');
     } else {
         // localhost
         window.AGRC.apiKey = 'AGRC-63E1FF17767822';

@@ -115,7 +115,7 @@ define([
                 }, this.gnisNode),
                 this.printer = new Print({
                     map: MapController.map,
-                    url: config.exportWebMapUrl,
+                    url: config.urls.exportWebMap,
                     templates: [{
                         label: 'Portrait (PDF)',
                         format: 'PDF',

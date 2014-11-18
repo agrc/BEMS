@@ -12,8 +12,6 @@ define([
 
     'dojo/text!app/templates/LayerFilter.html',
 
-    'esri/tasks/Query',
-
     'app/config'
 ], function(
     _TemplatedMixin,
@@ -28,8 +26,6 @@ define([
     topic,
 
     template,
-
-    Query,
 
     config
 ) {
@@ -73,8 +69,6 @@ define([
             }, this);
 
             this.inherited(arguments);
-
-            this.query = new Query();
         },
         notifyDynamicService: function() {
             // summary:
