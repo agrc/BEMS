@@ -6,6 +6,7 @@ define([
     'dojo/topic',
 
     'esri/graphic',
+    'esri/graphicsUtils',
 
     'esri/layers/ArcGISDynamicMapServiceLayer',
     'esri/layers/ArcGISTiledMapServiceLayer',
@@ -26,6 +27,7 @@ define([
     topic,
 
     Graphic,
+    graphicUtils,
 
     ArcGISDynamicMapServiceLayer,
     ArcGISTiledMapServiceLayer,
@@ -99,6 +101,8 @@ define([
                     lang.hitch(this, 'highlight')),
                 topic.subscribe(config.topics.map.zoom,
                     lang.hitch(this, 'zoom')),
+                topic.subscribe(config.topics.map.setExpression,
+                    lang.hitch(this, 'setExpression')),
                 this.map.on('click', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
             );
         },
@@ -152,17 +156,17 @@ define([
                 });
             }
 
-            this.activeLayer = array.filter(this.layers, function(container) {
-                console.log('app.MapController::addLayerAndMakeVisible||hiding layer ', container.id);
-                container.layer.hide();
-                return container.id === props.id;
-            }, this)[0];
+            // this.activeLayer = array.filter(this.layers, function(container) {
+            //     console.log('app.MapController::addLayerAndMakeVisible||hiding layer ', container.id);
+            //     container.layer.hide();
+            //     return container.id === props.id;
+            // }, this)[0];
 
-            if (this.activeLayer) {
-                this.clearGraphic(this.graphic);
-                this.updateOpacity();
-                this.activeLayer.layer.show();
-            }
+            // if (this.activeLayer) {
+            //     this.clearGraphic(this.graphic);
+            //     this.updateOpacity();
+            //     this.activeLayer.layer.show();
+            // }
         },
         updateOpacity: function(opacity) {
             // summary:
@@ -202,13 +206,21 @@ define([
             this.graphic = new Graphic(geometry, this.symbol);
             this.map.graphics.add(this.graphic);
         },
-        zoom: function(geometry) {
+        zoom: function(args) {
             // summary:
             //      zoom to a geometry
-            // geometry
+            // args a geometry or an array of geometries
             console.log('app.MapController::zoom', arguments);
 
-            this.map.setExtent(geometry.getExtent(), true);
+            var extent;
+
+            if (Object.prototype.toString.call(args) === '[object Array]') {
+                extent = graphicUtils.graphicsExtent(args);
+            } else {
+                extent = args.getExtent();
+            }
+
+            this.map.setExtent(extent, true);
         },
         clearGraphic: function(graphic) {
             // summary:
@@ -277,6 +289,14 @@ define([
                 point: evt.mapPoint,
                 layer: layer
             });
+        },
+        setExpression: function(layer, filter) {
+            // summary:
+            //      sets the definition expresson on the layer
+            // layer, filters
+            console.log('app.MapController::setExpression', arguments);
+
+            layer.setDefinitionExpression(filter);
         }
     };
 });

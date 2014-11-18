@@ -1,5 +1,6 @@
 define([
-    'dojo/text!app/templates/LayerFilter.html',
+    'dijit/_TemplatedMixin',
+    'dijit/_WidgetBase',
 
     'dojo/_base/array',
     'dojo/_base/declare',
@@ -7,10 +8,16 @@ define([
 
     'dojo/dom-construct',
 
-    'dijit/_WidgetBase',
-    'dijit/_TemplatedMixin'
+    'dojo/topic',
+
+    'dojo/text!app/templates/LayerFilter.html',
+
+    'esri/tasks/Query',
+
+    'app/config'
 ], function(
-    template,
+    _TemplatedMixin,
+    _WidgetBase,
 
     array,
     declare,
@@ -18,8 +25,13 @@ define([
 
     domConstruct,
 
-    _WidgetBase,
-    _TemplatedMixin
+    topic,
+
+    template,
+
+    Query,
+
+    config
 ) {
     return declare([_WidgetBase, _TemplatedMixin], {
         // description:
@@ -61,11 +73,12 @@ define([
             }, this);
 
             this.inherited(arguments);
+
+            this.query = new Query();
         },
-        notify: function() {
+        notifyDynamicService: function() {
             // summary:
-            //      wire events, and such
-            //
+            //      sets layer definition for map service
             console.log('app.LayerFilter::notify', arguments);
 
             var value = this.selectNode.value;
@@ -78,6 +91,25 @@ define([
             }
 
             this.layer.setLayerDefinitions(filters, false);
+        },
+        notify: function() {
+            // summary:
+            //      sets layer definition for map service
+            console.log('app.LayerFilter::notify', arguments);
+
+            var value = this.selectNode.value;
+            var filter;
+
+            if (value) {
+                filter = lang.replace(this.filter, [value]);
+            }
+
+            var handle = this.layer.on('update-end', function(args) {
+                topic.publish(config.topics.map.zoom, args.target.graphics);
+                handle.remove();
+            });
+
+            topic.publish(config.topics.map.setExpression, this.layer, filter);
         }
     });
 });

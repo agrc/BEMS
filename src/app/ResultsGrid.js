@@ -17,7 +17,6 @@ define([
     'dgrid/OnDemandGrid',
     'dgrid/Selection',
 
-    'esri/tasks/QueryTask',
     'esri/tasks/query',
 
     'app/config'
@@ -40,7 +39,6 @@ define([
     Grid,
     Selection,
 
-    QueryTask,
     Query,
 
     config
@@ -90,11 +88,7 @@ define([
                 data: []
             });
 
-            this.qt = new QueryTask(config.urls.boundaries + '/0');
             this.query = new Query();
-
-            this.query.returnGeometry = true;
-            this.query.outFields = ['OBJECTID', 'SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME'];
         },
         search: function(args) {
             // summary:
@@ -121,11 +115,10 @@ define([
                     selectionMode: 'single'
                 }, this.domNode);
 
-                this.grid.on('dgrid-select', function(events){
+                this.grid.on('dgrid-select', function(events) {
 
                     var row = events.rows[0];
-                    if(!row)
-                    {
+                    if (!row) {
                         return;
                     }
 
@@ -145,7 +138,7 @@ define([
                 this.query.where = args.layer.layerDefinitions[0];
             }
 
-            this.qt.execute(this.query, function(results) {
+            args.layer.queryFeatures(this.query, function(results) {
                 var data = array.map(results.features, function(feature) {
                     return {
                         // property names used here match those used when creating the dgrid
@@ -161,6 +154,5 @@ define([
                 self.grid.refresh();
             });
         }
-
     });
 });

@@ -89,7 +89,8 @@ define([
             MapController.addLayerAndMakeVisible({
                 url: config.urls.boundaries,
                 id: 'boundaries',
-                serviceType: 'dynamic'
+                serviceType: 'feature',
+                outFields: ['OBJECTID', 'SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME']
             });
 
             this.childWidgets.push(

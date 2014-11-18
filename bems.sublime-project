@@ -1,44 +1,53 @@
 {
-    "folders": [{
-        "folder_exclude_patterns": [
-            ".grunt",
-            "deploy",
-            "dist",
-            "node_modules",
-            "src/agrc",
-            "src/bootstrap",
-            "src/dgrid",
-            "src/dijit",
-            "src/dojo",
-            "src/dojox",
-            "src/esri",
-            "src/favico.js",
-            "src/ijit",
-            "src/jasmine-favicon-reporter",
-            "src/jquery",
-            "src/ladda-bootstrap",
-            "src/matchers",
-            "src/mustache",
-            "src/proj4js",
-            "src/put-selector",
-            "src/spin.js",
-            "src/spinjs",
-            "src/stubmodule",
-            "src/util",
-            "src/xstyle"
-        ],
-        "file_exclude_patterns": [
-            "dist/index.html",
-            "*.sublime-workspace",
-            "_SpecRunner.html",
-            ".jshintrc",
-            ".gitattributes",
-            ".gitignore",
-            "LICENSE.md",
-            "README.md",
-            ".bowerrc",
-            ".travis.yml"
-        ],
-        "path": "/"
-    }]
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"dist/index.html",
+				"*.sublime-workspace",
+				"_SpecRunner.html",
+				".jshintrc",
+				".gitattributes",
+				".gitignore",
+				"LICENSE.md",
+				"README.md",
+				".bowerrc",
+				".travis.yml"
+			],
+			"folder_exclude_patterns":
+			[
+				".grunt",
+				"deploy",
+				"dist",
+				"node_modules",
+				"src/agrc",
+				"src/bootstrap",
+				"src/dgrid",
+				"src/dijit",
+				"src/dojo",
+				"src/dojox",
+				"src/esri",
+				"src/favico.js",
+				"src/ijit",
+				"src/jasmine-favicon-reporter",
+				"src/jquery",
+				"src/ladda-bootstrap",
+				"src/matchers",
+				"src/mustache",
+				"src/proj4js",
+				"src/put-selector",
+				"src/spin.js",
+				"src/spinjs",
+				"src/stubmodule",
+				"src/util",
+				"src/xstyle"
+			],
+			"path": "/"
+		}
+	],
+	"settings":
+	{
+		"amd_packages_base_path": "C:\\Projects\\GitHub\\BEMS\\src\\"
+	}
 }
