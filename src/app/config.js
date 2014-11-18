@@ -14,7 +14,7 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
 
         // version.: String
         //      The version number.
-        version: '1.2.0',
+        version: '1.2.1',
 
         // apiKey: String
         //      The api key used for services on api.mapserv.utah.gov
