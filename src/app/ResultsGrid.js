@@ -7,7 +7,6 @@ define([
 
     'dojo/store/Memory',
     'dojo/topic',
-    'dojo/on',
 
     'dojo/dom-class',
 
@@ -29,7 +28,6 @@ define([
 
     Memory,
     topic,
-    on,
 
     domClass,
 
@@ -124,6 +122,7 @@ define([
 
                     topic.publish(config.topics.map.highlight, row.data.geometry);
                     topic.publish(config.topics.map.zoom, row.data.geometry);
+                    topic.publish(config.topics.events.setTitle, row.data.name);
                 });
 
                 this.grid.startup();

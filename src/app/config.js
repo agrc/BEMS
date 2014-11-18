@@ -40,7 +40,8 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
                 setExpression: 'app.definitionExpression'
             },
             events: {
-                search: 'app.search'
+                search: 'app.search',
+                setTitle: 'app.updatePrinterTitle'
             }
         }
     };

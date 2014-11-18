@@ -4,8 +4,6 @@ define([
     'dojo/_base/declare',
     'dojo/_base/array',
 
-    'dojo/dom-style',
-
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
@@ -15,8 +13,7 @@ define([
 
     'ijit/widgets/layout/SideBarToggler',
 
-    'esri/dijit/Print',
-
+    'app/Print',
     'app/MapController',
     'app/OpacitySlider',
     'app/config',
@@ -28,8 +25,6 @@ define([
 
     declare,
     array,
-
-    domStyle,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -114,24 +109,8 @@ define([
                     'class': 'first'
                 }, this.gnisNode),
                 this.printer = new Print({
-                    map: MapController.map,
-                    url: config.urls.exportWebMap,
-                    templates: [{
-                        label: 'Portrait (PDF)',
-                        format: 'PDF',
-                        layout: 'Letter ANSI A Portrait',
-                        options: {
-                            legendLayers: []
-                        }
-                    }, {
-                        label: 'Landscape (PDF)',
-                        format: 'PDF',
-                        layout: 'Letter ANSI A Landscape',
-                        options: {
-                            legendLayers: []
-                        }
-                    }]
-                }, this.printDiv),
+                    map: MapController.map
+                }, this.printNode),
                 new OpacitySlider({
                     map: MapController.map
                 }, this.sliderNode),
@@ -150,10 +129,6 @@ define([
                 console.log(widget.declaredClass);
                 that.own(widget);
                 widget.startup();
-            });
-
-            this.printer.on('print-complete', function() {
-                domStyle.set(that.popupBlurb, 'display', 'block');
             });
 
             MapController.addLayerFilter({
