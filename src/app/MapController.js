@@ -70,7 +70,8 @@ define([
             this.map = new BaseMap(this.mapDiv, {
                 useDefaultExtent: true,
                 useDefaultBaseMap: false,
-                router: true
+                router: true,
+                showAttribution: false
             });
 
             this.childWidgets.push(
