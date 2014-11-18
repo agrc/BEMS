@@ -18,6 +18,7 @@
             'esri',
             'ijit',
             'dgrid',
+            'mustache',
             'put-selector',
             'xstyle',
             {
