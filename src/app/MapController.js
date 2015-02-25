@@ -259,7 +259,7 @@ define([
                 new LayerFilter({
                     layer: layer.layer,
                     values: params.data,
-                    filter: config.filters.serviceType
+                    filter: params.filter
                 }, params.node)
             );
         },

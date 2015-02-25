@@ -19,7 +19,8 @@ define([
     'app/config',
     'app/ResultsGrid',
 
-    'app/data/serviceTypes'
+    'app/data/serviceTypes',
+    'app/data/serviceLevels'
 ], function(
     template,
 
@@ -42,7 +43,8 @@ define([
     config,
     ResultsGrid,
 
-    serviceTypes
+    serviceTypes,
+    serviceLevels
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -134,7 +136,15 @@ define([
             MapController.addLayerFilter({
                 id: 'boundaries',
                 data: serviceTypes,
-                node: this.filterNode
+                node: this.filterNode,
+                filter: config.filters.serviceType
+            });
+
+            MapController.addLayerFilter({
+                id: 'boundaries',
+                data: serviceLevels,
+                node: this.filterLevelsNode,
+                filter: config.filters.serviceLevel
             });
 
             this.inherited(arguments);
