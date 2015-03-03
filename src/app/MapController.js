@@ -155,6 +155,8 @@ define([
                     id: props.id,
                     layer: lyr
                 });
+
+                this.activeLayer = lyr;
             }
 
             // this.activeLayer = array.filter(this.layers, function(container) {
@@ -184,7 +186,7 @@ define([
                 return;
             }
 
-            this.activeLayer.layer.setOpacity(this.currentOpacity);
+            this.activeLayer.setOpacity(this.currentOpacity);
         },
         startup: function() {
             // summary:

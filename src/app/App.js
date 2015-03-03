@@ -1,50 +1,47 @@
 define([
-    'dojo/text!app/templates/App.html',
-
-    'dojo/_base/declare',
-    'dojo/_base/array',
-
-    'dijit/_WidgetBase',
-    'dijit/_TemplatedMixin',
-    'dijit/_WidgetsInTemplateMixin',
-
     'agrc/widgets/locate/FindAddress',
     'agrc/widgets/locate/MagicZoom',
 
-    'ijit/widgets/layout/SideBarToggler',
-
-    'app/Print',
+    'app/config',
+    'app/data/agencies',
+    'app/data/serviceLevels',
+    'app/data/serviceTypes',
     'app/MapController',
     'app/OpacitySlider',
-    'app/config',
+    'app/Print',
     'app/ResultsGrid',
 
-    'app/data/serviceTypes',
-    'app/data/serviceLevels'
+    'dijit/_TemplatedMixin',
+    'dijit/_WidgetBase',
+    'dijit/_WidgetsInTemplateMixin',
+
+    'dojo/_base/array',
+    'dojo/_base/declare',
+    'dojo/text!app/templates/App.html',
+
+    'ijit/widgets/layout/SideBarToggler'
 ], function(
-    template,
-
-    declare,
-    array,
-
-    _WidgetBase,
-    _TemplatedMixin,
-    _WidgetsInTemplateMixin,
-
     FindAddress,
     MagicZoom,
 
-    SideBarToggler,
-
-    Print,
-
+    config,
+    agencies,
+    serviceLevels,
+    serviceTypes,
     MapController,
     OpacitySlider,
-    config,
+    Print,
     ResultsGrid,
 
-    serviceTypes,
-    serviceLevels
+    _TemplatedMixin,
+    _WidgetBase,
+    _WidgetsInTemplateMixin,
+
+    array,
+    declare,
+    template,
+
+    SideBarToggler
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -87,6 +84,7 @@ define([
                 url: config.urls.boundaries,
                 id: 'boundaries',
                 serviceType: 'feature',
+                mode: 0,
                 outFields: ['OBJECTID', 'SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME']
             });
 
@@ -145,6 +143,13 @@ define([
                 data: serviceLevels,
                 node: this.filterLevelsNode,
                 filter: config.filters.serviceLevel
+            });
+
+            MapController.addLayerFilter({
+                id: 'boundaries',
+                data: agencies,
+                node: this.filterAgencyNode,
+                filter: config.filters.agency
             });
 
             this.inherited(arguments);

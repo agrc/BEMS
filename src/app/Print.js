@@ -108,7 +108,7 @@ define([
         startup: function() {
             // summary:
             //      Fires after postCreate when all of the child widgets are finished laying out.
-            console.log('app.App::startup', arguments);
+            console.log('app.Print:startup', arguments);
 
             var self = this;
             array.forEach(this.childWidgets, function(widget) {

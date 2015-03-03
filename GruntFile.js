@@ -27,7 +27,6 @@ module.exports = function(grunt) {
             '!jasmine-favicon-reporter/**',
             '!**/*.uncompressed.js',
             '!**/*consoleStripped.js',
-            '!**/*.min.*',
             '!**/tests/**',
             '!**/bootstrap/test-infra/**',
             '!**/bootstrap/less/**'

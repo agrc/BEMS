@@ -62,29 +62,42 @@ define([
             console.log('app.LayerFilter::postCreate', arguments);
 
             array.forEach(this.values, function(item) {
-                domConstruct.create('option', {
-                    innerHTML: item.name,
-                    value: item.value
-                }, this.selectNode);
+                var options = {
+                    innerHTML: null,
+                    value: null
+                };
+
+                if (item.name) {
+                    options.innerHTML = item.name;
+                    options.value = item.value;
+                }
+                else
+                {
+                    options.innerHTML = item;
+                    options.value = item;
+                }
+
+                domConstruct.create('option', options, this.selectNode);
             }, this);
+
+            this.own(
+                topic.subscribe(config.topics.events.filter, lang.hitch(this, 'reset'))
+            );
 
             this.inherited(arguments);
         },
-        notifyDynamicService: function() {
+        reset: function(node) {
             // summary:
-            //      sets layer definition for map service
-            console.log('app.LayerFilter::notify', arguments);
+            //      resets the state of the dropdown
+            //      if it is not the sender and ignores any attached events
+            // node: the node sending the event
+            console.log('app.LayerFilter::reset', arguments);
 
-            var value = this.selectNode.value;
-            var layerIndex = 0;
-            var filters = [];
-
-
-            if (value) {
-                filters[layerIndex] = lang.replace(this.filter, [value]);
+            if(this.domNode === node){
+                return;
             }
 
-            this.layer.setLayerDefinitions(filters, false);
+            this.selectNode.selectedIndex = 0;
         },
         notify: function() {
             // summary:
@@ -104,6 +117,7 @@ define([
             });
 
             topic.publish(config.topics.map.setExpression, this.layer, filter);
+            topic.publish(config.topics.events.filter, this.domNode);
         }
     });
 });

@@ -14,7 +14,7 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
 
         // version.: String
         //      The version number.
-        version: '1.2.1',
+        version: '1.3.0',
 
         // apiKey: String
         //      The api key used for services on api.mapserv.utah.gov
@@ -29,7 +29,8 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
 
         filters: {
             serviceType: 'SERVICE_TYPE = \'{0}\'',
-            serviceLevel: 'SERVICE_LEVEL = \'{0}\''
+            serviceLevel: 'SERVICE_LEVEL = \'{0}\'',
+            agency: 'NAME = \'{0}\''
         },
 
         topics: {
@@ -42,7 +43,8 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
             },
             events: {
                 search: 'app.search',
-                setTitle: 'app.updatePrinterTitle'
+                setTitle: 'app.updatePrinterTitle',
+                filter: 'app.filtering'
             }
         }
     };
