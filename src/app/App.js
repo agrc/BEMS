@@ -6,6 +6,7 @@ define([
     'app/data/agencies',
     'app/data/serviceLevels',
     'app/data/serviceTypes',
+    'app/data/counties',
     'app/MapController',
     'app/OpacitySlider',
     'app/Print',
@@ -28,6 +29,7 @@ define([
     agencies,
     serviceLevels,
     serviceTypes,
+    counties,
     MapController,
     OpacitySlider,
     Print,
@@ -150,6 +152,13 @@ define([
                 data: agencies,
                 node: this.filterAgencyNode,
                 filter: config.filters.agency
+            });
+
+            MapController.addLayerFilter({
+                id: 'boundaries',
+                data: counties,
+                node: this.countyNode,
+                filter: config.filters.county
             });
 
             this.inherited(arguments);
