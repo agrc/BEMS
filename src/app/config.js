@@ -55,14 +55,18 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
         // mapserv.utah.gov
         window.AGRC.apiKey = 'AGRC-810ECA1C598895';
         window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://mapserv.utah.gov');
+        window.AGRC.urls.redline = 'http://mapserv.utah.gov/chalkdust';
     } else if (has('agrc-api-key') === 'stage') {
         // test.mapserv.utah.gov
         window.AGRC.apiKey = 'AGRC-AC122FA9671436';
         window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://test.mapserv.utah.gov');
+        window.AGRC.urls.redline = 'http://test.mapserv.utah.gov/chalkdust';
+
         esriConfig.defaults.io.corsEnabledServers.push('test.mapserv.utah.gov');
     } else {
         // localhost
         window.AGRC.apiKey = 'AGRC-63E1FF17767822';
+        window.AGRC.urls.redline = 'http://localhost/projects/git/chalkdust';
     }
 
     return window.AGRC;

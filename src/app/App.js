@@ -17,11 +17,14 @@ define([
 	'dijit/_WidgetBase',
 	'dijit/_WidgetsInTemplateMixin',
 
+	'dojo/dom-class',
+	'dojo/on',
 	'dojo/text!app/templates/App.html',
 	'dojo/_base/array',
 	'dojo/_base/declare',
 
-	'ijit/widgets/layout/SideBarToggler'
+	'ijit/widgets/layout/SideBarToggler',
+	'ijit/widgets/notify/ChangeRequest'
 ], function(
 	FindAddress,
 	MagicZoom,
@@ -41,11 +44,14 @@ define([
 	_WidgetBase,
 	_WidgetsInTemplateMixin,
 
+	domClass,
+	on,
 	template,
 	array,
 	declare,
 
-	SideBarToggler
+	SideBarToggler,
+	ChangeRequest
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -72,7 +78,7 @@ define([
 
             this.inherited(arguments);
         },
-        postCreate: function() {
+        postCreate: function () {
             // summary:
             //      Fires when
             console.log('app.App::postCreate', arguments);
@@ -91,6 +97,12 @@ define([
                 mode: 0,
                 outFields: ['OBJECTID', 'SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME']
             });
+
+            this.changeRequest = new ChangeRequest({
+                map: MapController.map,
+                redliner: config.urls.redline,
+                toIds: [3, 5, 6]
+            }, this.suggestChangeDiv);
 
             this.childWidgets.push(
                 MapController,
@@ -118,10 +130,42 @@ define([
                 new OpacitySlider({
                     map: MapController.map
                 }, this.sliderNode),
-                new ResultsGrid({}, this.resultsGridDiv)
+                new ResultsGrid({}, this.resultsGridDiv),
+                this.changeRequest
             );
 
+            domClass.add(this.changeRequest.domNode, 'hidden');
+
+            this.setupConnections();
+
             this.inherited(arguments);
+        },
+        setupConnections: function () {
+            // summary:
+            //      wire events
+            // param or return
+            console.log('app.App:setupConnections', arguments);
+
+            var that = this;
+            this.own(
+                on(this.showChange, 'click', function () {
+                    domClass.toggle(that.changeRequest.domNode, 'hidden');
+                }),
+                on(this.changeRequest, 'drawStart', function () {
+                    MapController.handles.forEach(function (handle) {
+                        if (handle.pause) {
+                            handle.pause();
+                        }
+                    });
+                }),
+                on(this.changeRequest, 'drawEnd', function () {
+                    MapController.handles.forEach(function (handle) {
+                        if (handle.resume) {
+                            handle.resume();
+                        }
+                    });
+                })
+            );
         },
         startup: function() {
             // summary:

@@ -1,45 +1,41 @@
 define([
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/_base/Color',
+	'agrc/widgets/map/BaseMap',
+	'agrc/widgets/map/BaseMapSelector',
 
-    'dojo/topic',
+	'app/config',
+	'app/LayerFilter',
 
-    'esri/graphic',
-    'esri/graphicsUtils',
+	'dojo/on',
+	'dojo/topic',
+	'dojo/_base/array',
+	'dojo/_base/Color',
+	'dojo/_base/lang',
 
-    'esri/layers/ArcGISDynamicMapServiceLayer',
-    'esri/layers/ArcGISTiledMapServiceLayer',
-    'esri/layers/FeatureLayer',
-
-    'esri/symbols/SimpleLineSymbol',
-
-    'agrc/widgets/map/BaseMap',
-    'agrc/widgets/map/BaseMapSelector',
-
-    'app/config',
-    'app/LayerFilter'
+	'esri/graphic',
+	'esri/graphicsUtils',
+	'esri/layers/ArcGISDynamicMapServiceLayer',
+	'esri/layers/ArcGISTiledMapServiceLayer',
+	'esri/layers/FeatureLayer',
+	'esri/symbols/SimpleLineSymbol'
 ], function(
-    lang,
-    array,
-    Color,
+	BaseMap,
+	BaseMapSelector,
 
-    topic,
+	config,
+	LayerFilter,
 
-    Graphic,
-    graphicUtils,
+	on,
+	topic,
+	array,
+	Color,
+	lang,
 
-    ArcGISDynamicMapServiceLayer,
-    ArcGISTiledMapServiceLayer,
-    FeatureLayer,
-
-    LineSymbol,
-
-    BaseMap,
-    BaseMapSelector,
-
-    config,
-    LayerFilter
+	Graphic,
+	graphicUtils,
+	ArcGISDynamicMapServiceLayer,
+	ArcGISTiledMapServiceLayer,
+	FeatureLayer,
+	LineSymbol
 ) {
     return {
         // description:
@@ -104,7 +100,7 @@ define([
                     lang.hitch(this, 'zoom')),
                 topic.subscribe(config.topics.map.setExpression,
                     lang.hitch(this, 'setExpression')),
-                this.map.on('click', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
+                on.pausable(this.map, 'click', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
             );
         },
         addLayerAndMakeVisible: function(props) {
