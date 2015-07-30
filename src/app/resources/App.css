@@ -11,6 +11,7 @@
 @import 'OpacitySlider.css';
 @import 'ResultsGrid.css';
 @import 'LayerFilter.css';
+@import 'ClearReset.css';
 
 body, html, .app {
     width: 100%;

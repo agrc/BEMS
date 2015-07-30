@@ -1,49 +1,51 @@
 define([
-    'agrc/widgets/locate/FindAddress',
-    'agrc/widgets/locate/MagicZoom',
+	'agrc/widgets/locate/FindAddress',
+	'agrc/widgets/locate/MagicZoom',
 
-    'app/config',
-    'app/data/agencies',
-    'app/data/serviceLevels',
-    'app/data/serviceTypes',
-    'app/data/counties',
-    'app/MapController',
-    'app/OpacitySlider',
-    'app/Print',
-    'app/ResultsGrid',
+	'app/ClearReset',
+	'app/config',
+	'app/data/agencies',
+	'app/data/counties',
+	'app/data/serviceLevels',
+	'app/data/serviceTypes',
+	'app/MapController',
+	'app/OpacitySlider',
+	'app/Print',
+	'app/ResultsGrid',
 
-    'dijit/_TemplatedMixin',
-    'dijit/_WidgetBase',
-    'dijit/_WidgetsInTemplateMixin',
+	'dijit/_TemplatedMixin',
+	'dijit/_WidgetBase',
+	'dijit/_WidgetsInTemplateMixin',
 
-    'dojo/_base/array',
-    'dojo/_base/declare',
-    'dojo/text!app/templates/App.html',
+	'dojo/text!app/templates/App.html',
+	'dojo/_base/array',
+	'dojo/_base/declare',
 
-    'ijit/widgets/layout/SideBarToggler'
+	'ijit/widgets/layout/SideBarToggler'
 ], function(
-    FindAddress,
-    MagicZoom,
+	FindAddress,
+	MagicZoom,
 
-    config,
-    agencies,
-    serviceLevels,
-    serviceTypes,
-    counties,
-    MapController,
-    OpacitySlider,
-    Print,
-    ResultsGrid,
+	ClearReset,
+	config,
+	agencies,
+	counties,
+	serviceLevels,
+	serviceTypes,
+	MapController,
+	OpacitySlider,
+	Print,
+	ResultsGrid,
 
-    _TemplatedMixin,
-    _WidgetBase,
-    _WidgetsInTemplateMixin,
+	_TemplatedMixin,
+	_WidgetBase,
+	_WidgetsInTemplateMixin,
 
-    array,
-    declare,
-    template,
+	template,
+	array,
+	declare,
 
-    SideBarToggler
+	SideBarToggler
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -160,6 +162,12 @@ define([
                 node: this.countyNode,
                 filter: config.filters.county
             });
+
+            var clearReset = new ClearReset({}, this.clearNode);
+            this.childWidgets.push(clearReset);
+
+            this.own(clearReset);
+            clearReset.startup();
 
             this.inherited(arguments);
         }

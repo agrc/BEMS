@@ -22,6 +22,7 @@
         "function",
         "typeof"
     ],
+    "disallowDanglingUnderscores": false,
     "requireSpaceBeforeBlockStatements": true,
     "requireParenthesesAroundIIFE": true,
     "requireSpacesInConditionalExpression": true,
