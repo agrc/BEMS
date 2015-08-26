@@ -1,57 +1,59 @@
 define([
-	'agrc/widgets/locate/FindAddress',
-	'agrc/widgets/locate/MagicZoom',
+    'agrc/widgets/locate/FindAddress',
+    'agrc/widgets/locate/MagicZoom',
 
-	'app/ClearReset',
-	'app/config',
-	'app/data/agencies',
-	'app/data/counties',
-	'app/data/serviceLevels',
-	'app/data/serviceTypes',
-	'app/MapController',
-	'app/OpacitySlider',
-	'app/Print',
-	'app/ResultsGrid',
+    'app/ClearReset',
+    'app/config',
+    'app/data/agencies',
+    'app/data/counties',
+    'app/data/serviceLevels',
+    'app/data/serviceTypes',
+    'app/LegendButton',
+    'app/MapController',
+    'app/OpacitySlider',
+    'app/Print',
+    'app/ResultsGrid',
 
-	'dijit/_TemplatedMixin',
-	'dijit/_WidgetBase',
-	'dijit/_WidgetsInTemplateMixin',
+    'dijit/_TemplatedMixin',
+    'dijit/_WidgetBase',
+    'dijit/_WidgetsInTemplateMixin',
 
-	'dojo/dom-class',
-	'dojo/on',
-	'dojo/text!app/templates/App.html',
-	'dojo/_base/array',
-	'dojo/_base/declare',
+    'dojo/dom-class',
+    'dojo/on',
+    'dojo/text!app/templates/App.html',
+    'dojo/_base/array',
+    'dojo/_base/declare',
 
-	'ijit/widgets/layout/SideBarToggler',
-	'ijit/widgets/notify/ChangeRequest'
+    'ijit/widgets/layout/SideBarToggler',
+    'ijit/widgets/notify/ChangeRequest'
 ], function(
-	FindAddress,
-	MagicZoom,
+    FindAddress,
+    MagicZoom,
 
-	ClearReset,
-	config,
-	agencies,
-	counties,
-	serviceLevels,
-	serviceTypes,
-	MapController,
-	OpacitySlider,
-	Print,
-	ResultsGrid,
+    ClearReset,
+    config,
+    agencies,
+    counties,
+    serviceLevels,
+    serviceTypes,
+    LegendButton,
+    MapController,
+    OpacitySlider,
+    Print,
+    ResultsGrid,
 
-	_TemplatedMixin,
-	_WidgetBase,
-	_WidgetsInTemplateMixin,
+    _TemplatedMixin,
+    _WidgetBase,
+    _WidgetsInTemplateMixin,
 
-	domClass,
-	on,
-	template,
-	array,
-	declare,
+    domClass,
+    on,
+    template,
+    array,
+    declare,
 
-	SideBarToggler,
-	ChangeRequest
+    SideBarToggler,
+    ChangeRequest
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:
@@ -101,7 +103,7 @@ define([
             this.changeRequest = new ChangeRequest({
                 map: MapController.map,
                 redliner: config.urls.redline,
-                toIds: [3, 5, 6]
+                toIds: [8, 9, 10]
             }, this.suggestChangeDiv);
 
             this.childWidgets.push(
@@ -131,7 +133,8 @@ define([
                     map: MapController.map
                 }, this.sliderNode),
                 new ResultsGrid({}, this.resultsGridDiv),
-                this.changeRequest
+                this.changeRequest,
+                new LegendButton({}).placeAt(MapController.map.root, 'last')
             );
 
             domClass.add(this.changeRequest.domNode, 'hidden');

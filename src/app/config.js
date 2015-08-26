@@ -25,7 +25,8 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
         urls: {
             vector: 'http://mapserv.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
             boundaries: 'http://localhost/arcgis/rest/services/BEMS/Boundaries/MapServer/0',
-            exportWebMap: '/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'
+            exportWebMap: '/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
+            redline: 'http://test.mapserv.utah.gov/BEMS'
         },
 
         filters: {
