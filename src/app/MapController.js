@@ -1,41 +1,41 @@
 define([
-	'agrc/widgets/map/BaseMap',
-	'agrc/widgets/map/BaseMapSelector',
+    'agrc/widgets/map/BaseMap',
+    'agrc/widgets/map/BaseMapSelector',
 
-	'app/config',
-	'app/LayerFilter',
+    'app/config',
+    'app/LayerFilter',
 
-	'dojo/on',
-	'dojo/topic',
-	'dojo/_base/array',
-	'dojo/_base/Color',
-	'dojo/_base/lang',
+    'dojo/on',
+    'dojo/topic',
+    'dojo/_base/array',
+    'dojo/_base/Color',
+    'dojo/_base/lang',
 
-	'esri/graphic',
-	'esri/graphicsUtils',
-	'esri/layers/ArcGISDynamicMapServiceLayer',
-	'esri/layers/ArcGISTiledMapServiceLayer',
-	'esri/layers/FeatureLayer',
-	'esri/symbols/SimpleLineSymbol'
+    'esri/graphic',
+    'esri/graphicsUtils',
+    'esri/layers/ArcGISDynamicMapServiceLayer',
+    'esri/layers/ArcGISTiledMapServiceLayer',
+    'esri/layers/FeatureLayer',
+    'esri/symbols/SimpleLineSymbol'
 ], function(
-	BaseMap,
-	BaseMapSelector,
+    BaseMap,
+    BaseMapSelector,
 
-	config,
-	LayerFilter,
+    config,
+    LayerFilter,
 
-	on,
-	topic,
-	array,
-	Color,
-	lang,
+    on,
+    topic,
+    array,
+    Color,
+    lang,
 
-	Graphic,
-	graphicUtils,
-	ArcGISDynamicMapServiceLayer,
-	ArcGISTiledMapServiceLayer,
-	FeatureLayer,
-	LineSymbol
+    Graphic,
+    graphicUtils,
+    ArcGISDynamicMapServiceLayer,
+    ArcGISTiledMapServiceLayer,
+    FeatureLayer,
+    LineSymbol
 ) {
     return {
         // description:
@@ -44,6 +44,10 @@ define([
         // handles: Object[]
         //      container to track handles for this object
         handles: [],
+
+        // filters: []
+        //      keep track of filters
+        filters: [],
 
         // childWidgets: array
         // summary:
@@ -253,13 +257,15 @@ define([
                 return;
             }
 
-            this.childWidgets.push(
-                new LayerFilter({
-                    layer: layer.layer,
-                    values: params.data,
-                    filter: params.filter
-                }, params.node)
-            );
+            var f = new LayerFilter({
+                layer: layer.layer,
+                values: params.data,
+                filter: params.filter,
+                ignoreFilterResets: params.ignoreFilterResets
+            }, params.node);
+
+            this.filters.push(f);
+            this.childWidgets.push(f);
         },
         destroy: function() {
             // summary:
@@ -289,13 +295,53 @@ define([
                 layer: layer
             });
         },
-        setExpression: function(layer, filter) {
+        setExpression: function() {
             // summary:
             //      sets the definition expresson on the layer
-            // layer, filters
             console.log('app.MapController::setExpression', arguments);
 
-            layer.setDefinitionExpression(filter);
+            var activeFilters = this.filters.filter(function (filter) {
+                return filter.expression;
+            });
+
+            activeFilters = activeFilters.map(function (filter) {
+                return {
+                    expression: filter.expression,
+                    layer: filter.layer
+                };
+            });
+
+            var combinedFilters = {};
+
+            activeFilters.forEach(function (filter) {
+                if (combinedFilters[filter.layer.name]) {
+                    combinedFilters[filter.layer.name] = combinedFilters[filter.layer.name].concat([filter]);
+                } else {
+                    combinedFilters[filter.layer.name] = [filter];
+                }
+            });
+
+            var keys = Object.keys(combinedFilters);
+            if (!keys || !keys.length) {
+                var uniqueLayers = {};
+                this.filters.forEach(function (filter) {
+                    if (!uniqueLayers[filter.layer.name]) {
+                        uniqueLayers[filter.layer.name] = filter.layer;
+                    }
+                });
+                Object.keys(uniqueLayers).forEach(function (layer) {
+                    uniqueLayers[layer].setDefinitionExpression();
+                });
+            } else {
+                keys.forEach(function (key) {
+                    var layer = combinedFilters[key][0].layer;
+                    var expressions = combinedFilters[key].map(function (filter) {
+                        return filter.expression;
+                    });
+
+                    layer.setDefinitionExpression(expressions.join(' AND '));
+                });
+            }
         }
     };
 });

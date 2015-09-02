@@ -207,7 +207,8 @@ define([
                 id: 'boundaries',
                 data: counties,
                 node: this.countyNode,
-                filter: config.filters.county
+                filter: config.filters.county,
+                ignoreFilterResets: true
             });
 
             var clearReset = new ClearReset({}, this.clearNode);

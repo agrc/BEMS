@@ -54,6 +54,10 @@ define([
         //      the field to filter on
         filter: null,
 
+        // ignoreFilterResets: bool
+        //      allows a filter to be sticky
+        ignoreFilterResets: false,
+
         postCreate: function() {
             // summary:
             //      Overrides method of same name in dijit._Widget.
@@ -86,29 +90,44 @@ define([
 
             this.inherited(arguments);
         },
-        reset: function(node) {
+        reset: function(widget) {
             // summary:
             //      resets the state of the dropdown
             //      if it is not the sender and ignores any attached events
-            // node: the node sending the event
+            // widget: the widget sending the event
             console.log('app.LayerFilter::reset', arguments);
 
-            if(this.domNode === node){
+            // clear reset sends no param
+            if (!widget) {
+                this.selectNode.selectedIndex = 0;
                 return;
             }
 
-            this.selectNode.selectedIndex = 0;
+            // if the domNode is the event emitter skip it
+            if (this.domNode === widget.domNode){
+                return;
+            }
+
+            // if the incomming filter can be combined skip it
+            if (widget.ignoreFilterResets){
+                return;
+            }
+
+            // if the filter can not be combined reset it
+            if (!this.ignoreFilterResets) {
+                this.selectNode.selectedIndex = 0;
+            }
         },
         notify: function() {
             // summary:
             //      sets layer definition for map service
             console.log('app.LayerFilter::notify', arguments);
 
+            this.expression = undefined;
             var value = this.selectNode.value;
-            var filter;
 
             if (value) {
-                filter = lang.replace(this.filter, [value]);
+                this.expression = lang.replace(this.filter, [value]);
             }
 
             var handle = this.layer.on('update-end', function(args) {
@@ -116,8 +135,8 @@ define([
                 handle.remove();
             });
 
-            topic.publish(config.topics.map.setExpression, this.layer, filter);
-            topic.publish(config.topics.events.filter, this.domNode);
+            topic.publish(config.topics.map.setExpression, true);
+            topic.publish(config.topics.events.filter, this);
         }
     });
 });
