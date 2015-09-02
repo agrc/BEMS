@@ -47,7 +47,8 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
             events: {
                 search: 'app.search',
                 setTitle: 'app.updatePrinterTitle',
-                filter: 'app.filtering'
+                filter: 'app.filtering',
+                updateEnd: 'app.layerUpdateing'
             }
         }
     };

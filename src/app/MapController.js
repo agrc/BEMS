@@ -146,7 +146,6 @@ define([
 
                 lyr = new LayerClass(props.url, props);
                 lyr.on('click', lang.hitch(this, 'highlight'));
-                //lyr.on('click', lang.hitch(this, 'query'));
 
                 this.map.addLayer(lyr);
                 this.map.addLoaderToLayer(lyr);
@@ -216,6 +215,11 @@ define([
             console.log('app.MapController::zoom', arguments);
 
             var extent;
+
+            if (args && args.length === 0) {
+                this.map.setDefaultExtent();
+                return;
+            }
 
             if (Object.prototype.toString.call(args) === '[object Array]') {
                 extent = graphicUtils.graphicsExtent(args);
@@ -340,6 +344,9 @@ define([
                     });
 
                     layer.setDefinitionExpression(expressions.join(' AND '));
+                    on.once(layer, 'update-end',  function (e) {
+                        topic.publish(config.topics.events.updateEnd, e);
+                    });
                 });
             }
         }

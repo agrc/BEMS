@@ -69,8 +69,8 @@ define([
             console.log('app.ResultsGrid::setupConnections', arguments);
 
             this.own(
-                topic.subscribe(config.topics.events.search,
-                    lang.hitch(this, 'search'))
+                topic.subscribe(config.topics.events.search, lang.hitch(this, 'search')),
+                topic.subscribe(config.topics.events.updateEnd, lang.hitch(this, 'showSearchResultsInGrid'))
             );
         },
         startup: function() {
@@ -82,6 +82,61 @@ define([
             });
 
             this.query = new Query();
+
+            this.grid = new(declare([Grid, Selection]))({
+                bufferRows: Infinity,
+                store: this.store,
+                columns: {
+                    id: 'id',
+                    name: 'Boundary Name',
+                    service: 'Type of Service',
+                    level: 'Level of Service',
+                    geometry: 'shape'
+                },
+                selectionMode: 'single'
+            }, this.domNode);
+
+            this.grid.on('dgrid-select', function(events) {
+
+                var row = events.rows[0];
+                if (!row) {
+                    return;
+                }
+
+                topic.publish(config.topics.map.highlight, row.data.geometry);
+                topic.publish(config.topics.map.zoom, row.data.geometry);
+                topic.publish(config.topics.events.setTitle, row.data.name);
+            });
+
+            this.grid.startup();
+
+            this.grid.styleColumn('geometry', 'display: none;');
+            this.grid.styleColumn('id', 'display: none;');
+        },
+        showSearchResultsInGrid: function (result) {
+            // summary:
+            //      description
+            // param or return
+            console.log('app.ResultsGrid:showSearchResultsInGrid', arguments);
+
+            this.store.data = null;
+            this.grid.refresh();
+
+            var data = result.target.graphics.map(function(feature) {
+                return {
+                    // property names used here match those used when creating the dgrid
+                    'id': feature.attributes.OBJECTID,
+                    'name': feature.attributes.NAME,
+                    'service': feature.attributes.SERVICE_TYPE,
+                    'level': feature.attributes.SERVICE_LEVEL,
+                    'geometry': feature.geometry
+                };
+            });
+
+            this.store.data = data;
+            this.grid.refresh();
+
+            domClass.remove(this.domNode, 'hide');
         },
         search: function(args) {
             // summary:
@@ -89,41 +144,9 @@ define([
             // args: { point - the map point click geometry, layer - the layer being queried }
             console.log('app.ResultsGrid::search', arguments);
 
-            domClass.remove(this.domNode, 'hide');
-
             if (this.grid) {
                 this.grid.store.data = null;
                 this.grid.refresh();
-            } else {
-                this.grid = new(declare([Grid, Selection]))({
-                    bufferRows: Infinity,
-                    store: this.store,
-                    columns: {
-                        id: 'id',
-                        name: 'Boundary Name',
-                        service: 'Type of Service',
-                        level: 'Level of Service',
-                        geometry: 'shape'
-                    },
-                    selectionMode: 'single'
-                }, this.domNode);
-
-                this.grid.on('dgrid-select', function(events) {
-
-                    var row = events.rows[0];
-                    if (!row) {
-                        return;
-                    }
-
-                    topic.publish(config.topics.map.highlight, row.data.geometry);
-                    topic.publish(config.topics.map.zoom, row.data.geometry);
-                    topic.publish(config.topics.events.setTitle, row.data.name);
-                });
-
-                this.grid.startup();
-
-                this.grid.styleColumn('geometry', 'display: none;');
-                this.grid.styleColumn('id', 'display: none;');
             }
 
             var self = this;
@@ -146,6 +169,8 @@ define([
 
                 self.store.data = data;
                 self.grid.refresh();
+
+                domClass.remove(self.domNode, 'hide');
             });
         }
     });
