@@ -67,7 +67,7 @@ define([
 			}
 
 			MapController.map.setDefaultExtent();
-			domClass.add(this.resultGrid.domNode, 'hidden');
+			domClass.add(this.resultGrid.domNode, 'hide');
         },
 		startup: function () {
 			// summary:

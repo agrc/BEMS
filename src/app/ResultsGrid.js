@@ -66,14 +66,9 @@ define([
         setupConnections: function() {
             // summary:
             //      wire events, and such
-            //
             console.log('app.ResultsGrid::setupConnections', arguments);
 
             this.own(
-                //     topic.subscribe(config.topics.appSearch.searchStarted,
-                //         lang.hitch(this, 'clear')),
-                //     topic.subscribe(config.topics.appSearch.clear,
-                //         lang.hitch(this, 'clear')),
                 topic.subscribe(config.topics.events.search,
                     lang.hitch(this, 'search'))
             );
