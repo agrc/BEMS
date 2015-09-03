@@ -108,8 +108,6 @@ define([
                 topic.publish(config.topics.events.setTitle, row.data.name);
             });
 
-            this.grid.startup();
-
             this.grid.styleColumn('geometry', 'display: none;');
             this.grid.styleColumn('id', 'display: none;');
         },
@@ -137,6 +135,7 @@ define([
             this.grid.refresh();
 
             domClass.remove(this.domNode, 'hide');
+            this.grid.startup();
         },
         search: function(args) {
             // summary:
@@ -171,6 +170,7 @@ define([
                 self.grid.refresh();
 
                 domClass.remove(self.domNode, 'hide');
+                self.grid.startup();
             });
         }
     });
