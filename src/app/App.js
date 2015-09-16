@@ -26,7 +26,7 @@ define([
 
     'ijit/widgets/layout/SideBarToggler',
     'ijit/widgets/notify/ChangeRequest'
-], function(
+], function (
     FindAddress,
     MagicZoom,
 
@@ -70,7 +70,7 @@ define([
         // map: agrc.widgets.map.Basemap
         map: null,
 
-        constructor: function() {
+        constructor: function () {
             // summary:
             //      first function to fire after page loads
             console.info('app.App::constructor', arguments);
@@ -170,13 +170,13 @@ define([
                 })
             );
         },
-        startup: function() {
+        startup: function () {
             // summary:
             //      Fires after postCreate when all of the child widgets are finished laying out.
             console.log('app.App::startup', arguments);
 
             var that = this;
-            array.forEach(this.childWidgets, function(widget) {
+            array.forEach(this.childWidgets, function (widget) {
                 console.log(widget.declaredClass);
                 that.own(widget);
                 widget.startup();
