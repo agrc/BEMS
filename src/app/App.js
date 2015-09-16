@@ -134,7 +134,7 @@ define([
                 }, this.sliderNode),
                 new ResultsGrid({}, this.resultsGridDiv),
                 this.changeRequest,
-                new LegendButton({}).placeAt(MapController.map.root, 'last')
+                new LegendButton({}, this.legendNode)
             );
 
             domClass.add(this.changeRequest.domNode, 'hidden');
