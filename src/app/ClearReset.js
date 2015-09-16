@@ -1,5 +1,4 @@
 define([
-    'app/config',
     'app/MapController',
 
     'dijit/registry',
@@ -8,10 +7,8 @@ define([
 
     'dojo/dom-class',
     'dojo/text!app/templates/ClearReset.html',
-    'dojo/topic',
     'dojo/_base/declare'
 ], function (
-    config,
     MapController,
 
     registry,
@@ -20,7 +17,6 @@ define([
 
     domClass,
     template,
-    topic,
     declare
 ) {
     return declare([_WidgetBase, _TemplatedMixin], {
