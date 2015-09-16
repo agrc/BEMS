@@ -3,19 +3,25 @@ define([], function () {
         name: 'All',
         value: ''
     }, {
-        name: 'Ground Ambulance',
-        value: 'GROUND AMBULANCE'
+        name: 'Air Medical',
+        value: 'AIR MEDICAL'
     }, {
-        name: 'Interfacility',
-        value: 'INTERFACILITY'
+        name: '911 Response',
+        value: '911 RESPONSE'
     }, {
-        name: 'Paramedic Ground Ambulance',
-        value: 'PARAMEDIC GROUND AMBULANCE'
+        name: '911 Response with Transport',
+        value: '911 RESPONSE WITH TRANSPORT'
     }, {
-        name: 'Paramedic Rescue',
-        value: 'PARAMEDIC RESCUE'
+        name: '911 Response without Transport',
+        value: '911 RESPONSE WITHOUT TRANSPORT'
     }, {
-        name: 'Quick Reponse/Rescue',
-        value: 'QUICK RESPONSE/RESCUE'
+        name: 'Medical Transport',
+        value: 'MEDICAL TRANSPORT'
+    }, {
+        name: 'Rescue',
+        value: 'RESCUE'
+    }, {
+        name: 'Response without Transport',
+        value: 'RESPONSE WITHOUT TRANSPORT'
     }];
 });

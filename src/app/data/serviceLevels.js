@@ -3,16 +3,22 @@ define([], function() {
         name: 'All',
         value: ''
     }, {
-        name: 'Basic',
-        value: 'BASIC'
+        name: 'EMT Basic',
+        value: 'EMT-BASIC'
     }, {
-        name: 'Intermediate',
-        value: 'INTERMEDIATE'
+        name: 'EMT Intermediate',
+        value: 'EMT-INTERMEDIATE'
     }, {
-        name: 'Intermediate Advanced',
-        value: 'INTERMEDIATE ADVANCED'
+        name: '2009 AEMT',
+        value: '2009 AEMT'
     }, {
-        name: 'Paramedic',
-        value: 'PARAMEDIC'
+        name: '2009 Paramedic',
+        value: '2009 PARAMEDIC'
+    }, {
+        name: 'First Responder',
+        value: 'FIRST RESPONDER'
+    }, {
+        name: 'Nurse',
+        value: 'NURSE'
     }];
 });
