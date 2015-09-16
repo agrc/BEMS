@@ -13,7 +13,7 @@ define([
     'dojo/text!app/templates/LayerFilter.html',
 
     'app/config'
-], function(
+], function (
     _TemplatedMixin,
     _WidgetBase,
 
@@ -58,14 +58,14 @@ define([
         //      allows a filter to be sticky
         ignoreFilterResets: false,
 
-        postCreate: function() {
+        postCreate: function () {
             // summary:
             //      Overrides method of same name in dijit._Widget.
             // tags:
             //      private
             console.log('app.LayerFilter::postCreate', arguments);
 
-            array.forEach(this.values, function(item) {
+            array.forEach(this.values, function (item) {
                 var options = {
                     innerHTML: null,
                     value: null
@@ -74,9 +74,7 @@ define([
                 if (item.name) {
                     options.innerHTML = item.name;
                     options.value = item.value;
-                }
-                else
-                {
+                } else {
                     options.innerHTML = item;
                     options.value = item;
                 }
@@ -90,7 +88,7 @@ define([
 
             this.inherited(arguments);
         },
-        reset: function(widget) {
+        reset: function (widget) {
             // summary:
             //      resets the state of the dropdown
             //      if it is not the sender and ignores any attached events
@@ -104,12 +102,12 @@ define([
             }
 
             // if the domNode is the event emitter skip it
-            if (this.domNode === widget.domNode){
+            if (this.domNode === widget.domNode) {
                 return;
             }
 
             // if the incomming filter can be combined skip it
-            if (widget.ignoreFilterResets){
+            if (widget.ignoreFilterResets) {
                 return;
             }
 
@@ -118,7 +116,7 @@ define([
                 this.selectNode.selectedIndex = 0;
             }
         },
-        notify: function() {
+        notify: function () {
             // summary:
             //      sets layer definition for map service
             console.log('app.LayerFilter::notify', arguments);
@@ -130,7 +128,7 @@ define([
                 this.expression = lang.replace(this.filter, [value]);
             }
 
-            var handle = this.layer.on('update-end', function(args) {
+            var handle = this.layer.on('update-end', function (args) {
                 topic.publish(config.topics.map.zoom, args.target.graphics);
                 handle.remove();
             });

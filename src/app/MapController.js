@@ -17,7 +17,7 @@ define([
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/layers/FeatureLayer',
     'esri/symbols/SimpleLineSymbol'
-], function(
+], function (
     BaseMap,
     BaseMapSelector,
 
@@ -58,7 +58,7 @@ define([
         // map: agrc/widgets/map/BaseMap
         map: null,
 
-        init: function(params) {
+        init: function (params) {
             // summary:
             //      description
             console.log('app.MapController::init', arguments);
@@ -88,7 +88,7 @@ define([
 
             this.setUpSubscribes();
         },
-        setUpSubscribes: function() {
+        setUpSubscribes: function () {
             // summary:
             //      subscribes to topics
             console.log('app.MapController::setUpSubscribes', arguments);
@@ -107,7 +107,7 @@ define([
                 on.pausable(this.map, 'click', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
             );
         },
-        addLayerAndMakeVisible: function(props) {
+        addLayerAndMakeVisible: function (props) {
             // summary:
             //      description
             // props: object
@@ -116,7 +116,7 @@ define([
 
             // check to see if layer has already been added to the map
             var lyr;
-            var alreadyAdded = array.some(this.map.graphicsLayerIds, function(id) {
+            var alreadyAdded = array.some(this.map.graphicsLayerIds, function (id) {
                 console.log('app.MapController::addLayerAndMakeVisible||looping ids ', id);
                 return id === props.id;
             }, this);
@@ -127,21 +127,18 @@ define([
                 var LayerClass;
 
                 switch (props.serviceType || 'dynamic') {
-                    case 'feature':
-                        {
-                            LayerClass = FeatureLayer;
-                            break;
-                        }
-                    case 'tiled':
-                        {
-                            LayerClass = ArcGISTiledMapServiceLayer;
-                            break;
-                        }
-                    default:
-                        {
-                            LayerClass = ArcGISDynamicMapServiceLayer;
-                            break;
-                        }
+                    case 'feature': {
+                        LayerClass = FeatureLayer;
+                        break;
+                    }
+                    case 'tiled': {
+                        LayerClass = ArcGISTiledMapServiceLayer;
+                        break;
+                    }
+                    default: {
+                        LayerClass = ArcGISDynamicMapServiceLayer;
+                        break;
+                    }
                 }
 
                 lyr = new LayerClass(props.url, props);
@@ -156,21 +153,11 @@ define([
                 });
 
                 this.activeLayer = lyr;
+
+                return lyr;
             }
-
-            // this.activeLayer = array.filter(this.layers, function(container) {
-            //     console.log('app.MapController::addLayerAndMakeVisible||hiding layer ', container.id);
-            //     container.layer.hide();
-            //     return container.id === props.id;
-            // }, this)[0];
-
-            // if (this.activeLayer) {
-            //     this.clearGraphic(this.graphic);
-            //     this.updateOpacity();
-            //     this.activeLayer.layer.show();
-            // }
         },
-        updateOpacity: function(opacity) {
+        updateOpacity: function (opacity) {
             // summary:
             //      changes a layers opacity
             // opacity
@@ -187,16 +174,16 @@ define([
 
             this.activeLayer.setOpacity(this.currentOpacity);
         },
-        startup: function() {
+        startup: function () {
             // summary:
             //      startup once app is attached to dom
             console.log('app.MapController::startup', arguments);
 
-            array.forEach(this.childWidgets, function(widget) {
+            array.forEach(this.childWidgets, function (widget) {
                 widget.startup();
             }, this);
         },
-        highlight: function(geometry) {
+        highlight: function (geometry) {
             // summary:
             //      adds the clicked shape geometry to the graphics layer
             //      highlighting it
@@ -208,7 +195,7 @@ define([
             this.graphic = new Graphic(geometry, this.symbol);
             this.map.graphics.add(this.graphic);
         },
-        zoom: function(args) {
+        zoom: function (args) {
             // summary:
             //      zoom to a geometry
             // args a geometry or an array of geometries
@@ -229,7 +216,7 @@ define([
 
             this.map.setExtent(extent, true);
         },
-        clearGraphic: function(graphic) {
+        clearGraphic: function (graphic) {
             // summary:
             //      removes the graphic from the map
             // graphic
@@ -240,19 +227,19 @@ define([
                 this.graphic = null;
             }
         },
-        showPopup: function() {
+        showPopup: function () {
             // summary:
             //      shows the popup content for the graphic on the mouse over event
             // mouseEvent - mouse over event
             console.log('app.MapController::showPopup', arguments);
         },
-        addLayerFilter: function(params) {
+        addLayerFilter: function (params) {
             // summary:
             //      description
             // params
             console.log('app.MapController::addLayerFilter', arguments);
 
-            var layer = array.filter(this.layers, function(layer) {
+            var layer = array.filter(this.layers, function (layer) {
                 return layer.id === params.id;
             })[0];
 
@@ -271,26 +258,26 @@ define([
             this.filters.push(f);
             this.childWidgets.push(f);
         },
-        destroy: function() {
+        destroy: function () {
             // summary:
             //      destroys all handles
             console.log('app.MapControl::destroy', arguments);
 
-            array.forEach(this.handles, function(hand) {
+            array.forEach(this.handles, function (hand) {
                 hand.remove();
             });
 
-            array.forEach(this.childWidgets, function(widget) {
+            array.forEach(this.childWidgets, function (widget) {
                 widget.destroy();
             }, this);
         },
-        query: function(layerId, evt) {
+        query: function (layerId, evt) {
             // summary:
             //      fires when a click on the layer occurs
             // evt
             console.log('app.MapControl::query', arguments);
 
-            var layer = array.filter(this.layers, function(layer) {
+            var layer = array.filter(this.layers, function (layer) {
                 return layer.id === layerId;
             })[0].layer;
 
@@ -299,7 +286,7 @@ define([
                 layer: layer
             });
         },
-        setExpression: function() {
+        setExpression: function () {
             // summary:
             //      sets the definition expresson on the layer
             console.log('app.MapController::setExpression', arguments);
@@ -335,6 +322,7 @@ define([
                 });
                 Object.keys(uniqueLayers).forEach(function (layer) {
                     uniqueLayers[layer].setDefinitionExpression();
+                    uniqueLayers[layer].setVisibility(true);
                 });
             } else {
                 keys.forEach(function (key) {
@@ -344,6 +332,7 @@ define([
                     });
 
                     layer.setDefinitionExpression(expressions.join(' AND '));
+                    layer.setVisibility(true);
                     on.once(layer, 'update-end',  function (e) {
                         topic.publish(config.topics.events.updateEnd, e);
                     });

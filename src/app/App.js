@@ -92,13 +92,15 @@ define([
                 mapDiv: this.mapDiv
             });
 
-            MapController.addLayerAndMakeVisible({
+            var layer = MapController.addLayerAndMakeVisible({
                 url: config.urls.boundaries,
                 id: 'boundaries',
                 serviceType: 'feature',
                 mode: 0,
                 outFields: ['OBJECTID', 'SERVICE_LEVEL', 'SERVICE_TYPE', 'NAME']
             });
+
+            layer.setVisibility(false);
 
             this.changeRequest = new ChangeRequest({
                 map: MapController.map,
