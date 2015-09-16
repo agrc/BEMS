@@ -1,50 +1,54 @@
 <div>
-    <div>
-        <div class='title-container'>
-            <h1>
+    <div class='title-container'>
+        <h1>
                 <span class='title'>EMS Boundaries</span>
                 <a data-dojo-attach-point='version' class='version' href='ChangeLog.html'></a>
             </h1>
-            <img src="app/resources/logo.jpg" alt="health logo">
+        <img src="app/resources/logo.jpg" alt="health logo">
+    </div>
+    <div data-dojo-attach-point='sideBar' class='side-bar-container container-with-border'>
+        <div class="side-bar-padder">
+            <!-- required for side bar toggle widget -->
+            Data and services provided by <a href="http://gis.utah.gov">Utah AGRC</a>
+
+            <h4>Filter Boundaries</h4>
+            <div data-dojo-attach-point='filterNode'></div>
+
+            <h4>Filter Service Level</h4>
+            <div data-dojo-attach-point='filterLevelsNode'></div>
+
+            <h4>Filter Agency</h4>
+            <div data-dojo-attach-point="filterAgencyNode"></div>
+
+            <h4>Filter County</h4>
+            <div data-dojo-attach-point="countyNode"></div>
+
+            <h4>Find an Address</h4>
+            <div data-dojo-attach-point='geocodeNode'></div>
+
+            <h4>Find a Point of Interest</h4>
+            <div data-dojo-attach-point='gnisNode'></div>
+
+            <h4>Tools</h4>
+            <div data-dojo-attach-point="clearNode"></div>
+
+            <h4>Boundary Transparency</h4>
+
+            <div data-dojo-attach-point='sliderNode'></div>
+
+            <h4>Print Map</h4>
+            <div data-dojo-attach-point="printNode"></div>
+
+            <button data-dojo-attach-point="showChange" class='btn btn-warning'>Report a Problem</button>
+            <div data-dojo-attach-point="suggestChangeDiv" class='hidden'></div>
         </div>
-        <div data-dojo-attach-point='sideBar' class='side-bar-container container-with-border'>
-            <div class="side-bar-padder">
-                <!-- required for side bar toggle widget -->
-                Data and services provided by <a href="http://gis.utah.gov">Utah AGRC</a>
-                <button data-dojo-attach-point="showChange" class='btn btn-warning'>Report a Problem</button>
-                <div data-dojo-attach-point="suggestChangeDiv" class='hidden'></div>
-                <h4>Filter Boundaries</h4>
-                <div data-dojo-attach-point='filterNode'></div>
-
-                <h4>Filter Service Level</h4>
-                <div data-dojo-attach-point='filterLevelsNode'></div>
-
-                <h4>Filter Agency</h4>
-                <div data-dojo-attach-point="filterAgencyNode"></div>
-
-                <h4>Filter County</h4>
-                <div data-dojo-attach-point="countyNode"></div>
-                <div data-dojo-attach-point="clearNode"></div>
-
-                <h4>Find an Address</h4>
-                <div data-dojo-attach-point='geocodeNode'></div>
-
-                <h4>Find a Point of Interest</h4>
-                <div data-dojo-attach-point='gnisNode'></div>
-
-                <h4>Boundary Transparency</h4>
-                <div data-dojo-attach-point='sliderNode'></div>
-
-                <div data-dojo-attach-point="printNode"></div>
-            </div>
-        </div>
-        <div data-dojo-attach-point='centerContainer' class='center-container container-with-border'>
-            <div data-dojo-attach-point='sidebarToggle'></div>
-            <div data-dojo-attach-point='mapDiv' class='map-div'></div>
-            <div data-dojo-attach-point='gridIdentifyContainer'>
+    </div>
+    <div data-dojo-attach-point='centerContainer' class='center-container container-with-border'>
+        <div data-dojo-attach-point='sidebarToggle'></div>
+        <div data-dojo-attach-point='mapDiv' class='map-div'></div>
+        <div data-dojo-attach-point='gridIdentifyContainer'>
             <div data-dojo-attach-point="resultsGridDiv"></div>
             <div data-dojo-attach-point="identifyPaneDiv"></div>
-        </div>
         </div>
     </div>
 </div>
