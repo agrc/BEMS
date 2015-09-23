@@ -20,8 +20,5 @@ define([], function () {
     }, {
         name: 'Rescue',
         value: 'RESCUE'
-    }, {
-        name: 'Response without Transport',
-        value: 'RESPONSE WITHOUT TRANSPORT'
     }];
 });
