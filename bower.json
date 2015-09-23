@@ -1,6 +1,6 @@
 {
   "name": "BEMS",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "dependencies": {
     "agrc": "agrc-widgets#2.11.3",
     "bootstrap": "~3.3",
