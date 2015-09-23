@@ -58,9 +58,7 @@ define([
             //      wire events, and such
             console.log('app.ClearReset::reset', arguments);
 
-            if (MapController.graphic) {
-                MapController.clearGraphic(MapController.graphic);
-            }
+            MapController.map.graphics.clear();
 
             MapController.map.setDefaultExtent();
             domClass.add(this.resultGrid.domNode, 'hide');
