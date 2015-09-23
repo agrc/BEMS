@@ -19,3 +19,10 @@
 .grid-identify-container .results-grid{
     height: 150px;
 }
+
+.results-grid .dgrid-no-data {
+    color: #ec971f;
+    font-size: 3em;
+    padding: 1em;
+    text-align: center
+}

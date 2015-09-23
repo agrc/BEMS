@@ -1,33 +1,29 @@
 define([
+    'app/config',
+
     'dijit/_TemplatedMixin',
     'dijit/_WidgetBase',
 
+    'dojo/dom-construct',
+    'dojo/on',
+    'dojo/text!app/templates/LayerFilter.html',
+    'dojo/topic',
     'dojo/_base/array',
     'dojo/_base/declare',
-    'dojo/_base/lang',
-
-    'dojo/dom-construct',
-
-    'dojo/topic',
-
-    'dojo/text!app/templates/LayerFilter.html',
-
-    'app/config'
+    'dojo/_base/lang'
 ], function (
+    config,
+
     _TemplatedMixin,
     _WidgetBase,
 
+    domConstruct,
+    on,
+    template,
+    topic,
     array,
     declare,
-    lang,
-
-    domConstruct,
-
-    topic,
-
-    template,
-
-    config
+    lang
 ) {
     return declare([_WidgetBase, _TemplatedMixin], {
         // description:
@@ -114,6 +110,7 @@ define([
             // if the filter can not be combined reset it
             if (!this.ignoreFilterResets) {
                 this.selectNode.selectedIndex = 0;
+                this.expression = '';
             }
         },
         notify: function () {
@@ -128,13 +125,12 @@ define([
                 this.expression = lang.replace(this.filter, [value]);
             }
 
-            var handle = this.layer.on('update-end', function (args) {
+            on.once(this.layer, 'update-end', function (args) {
                 topic.publish(config.topics.map.zoom, args.target.graphics);
-                handle.remove();
             });
 
-            topic.publish(config.topics.map.setExpression, true);
             topic.publish(config.topics.events.filter, this);
+            topic.publish(config.topics.map.setExpression, true);
         }
     });
 });

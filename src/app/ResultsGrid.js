@@ -86,6 +86,8 @@ define([
             this.grid = new(declare([Grid, Selection]))({
                 bufferRows: Infinity,
                 store: this.store,
+                noDataMessage: 'No results found.',
+                loadingMessage: 'Querying boundaries...',
                 columns: {
                     id: 'id',
                     name: 'Boundary Name',
