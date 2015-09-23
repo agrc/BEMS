@@ -1,6 +1,6 @@
 define([], function() {
     return [{
-            name: 'All',
+            name: '',
             value: ''
         },
         'AMBULANCE SERVICES OF TOOELE, LLC',

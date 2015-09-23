@@ -1,6 +1,6 @@
 define([], function () {
     return [{
-        name: 'All',
+        name: '',
         value: ''
     }, {
         name: 'Beaver',
