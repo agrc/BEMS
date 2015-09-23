@@ -1,6 +1,6 @@
 define([], function () {
     return [{
-        name: '',
+        name: ' ',
         value: ''
     }, {
         name: 'Air Medical',
