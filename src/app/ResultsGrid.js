@@ -19,7 +19,7 @@ define([
     'esri/tasks/query',
 
     'app/config'
-], function(
+], function (
     template,
 
     declare,
@@ -54,7 +54,7 @@ define([
 
         // Properties to be sent into constructor
 
-        postCreate: function() {
+        postCreate: function () {
             // summary:
             //    Overrides method of same name in dijit._Widget.
             // tags:
@@ -63,7 +63,7 @@ define([
 
             this.setupConnections();
         },
-        setupConnections: function() {
+        setupConnections: function () {
             // summary:
             //      wire events, and such
             console.log('app.ResultsGrid::setupConnections', arguments);
@@ -73,7 +73,7 @@ define([
                 topic.subscribe(config.topics.events.updateEnd, lang.hitch(this, 'showSearchResultsInGrid'))
             );
         },
-        startup: function() {
+        startup: function () {
             // summary:
             //      creates the dgrid
             console.log('app.ResultsGrid::startup', arguments);
@@ -98,7 +98,7 @@ define([
                 selectionMode: 'single'
             }, this.domNode);
 
-            this.grid.on('dgrid-select', function(events) {
+            this.grid.on('dgrid-select', function (events) {
 
                 var row = events.rows[0];
                 if (!row) {
@@ -122,7 +122,7 @@ define([
             this.store.data = null;
             this.grid.refresh();
 
-            var data = result.target.graphics.map(function(feature) {
+            var data = result.target.graphics.map(function (feature) {
                 return {
                     // property names used here match those used when creating the dgrid
                     'id': feature.attributes.OBJECTID,
@@ -139,16 +139,11 @@ define([
             domClass.remove(this.domNode, 'hide');
             this.grid.startup();
         },
-        search: function(args) {
+        search: function (args) {
             // summary:
             //      queries the data and displays features in a grid
             // args: { point - the map point click geometry, layer - the layer being queried }
             console.log('app.ResultsGrid::search', arguments);
-
-            if (this.grid) {
-                this.grid.store.data = null;
-                this.grid.refresh();
-            }
 
             var self = this;
             this.query.geometry = args.point;
@@ -156,8 +151,17 @@ define([
                 this.query.where = args.layer.layerDefinitions[0];
             }
 
-            args.layer.queryFeatures(this.query, function(results) {
-                var data = array.map(results.features, function(feature) {
+            var priorQuery = args.layer.getDefinitionExpression();
+            if (priorQuery === '1=2') {
+                args.layer.setVisibility(false);
+                args.layer.setDefinitionExpression();
+            }
+
+            args.layer.queryFeatures(this.query, function (results) {
+                args.layer.setDefinitionExpression(priorQuery);
+                args.layer.setVisibility(true);
+
+                var data = array.map(results.features, function (feature) {
                     return {
                         // property names used here match those used when creating the dgrid
                         'id': feature.attributes.OBJECTID,
@@ -173,6 +177,14 @@ define([
 
                 domClass.remove(self.domNode, 'hide');
                 self.grid.startup();
+            }, function () {
+                args.layer.setDefinitionExpression(priorQuery);
+                args.layer.setVisibility(true);
+
+                if (self.grid) {
+                    self.grid.store.data = null;
+                    self.grid.refresh();
+                }
             });
         }
     });
