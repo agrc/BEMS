@@ -11,6 +11,7 @@ define([
     'dojo/_base/Color',
     'dojo/_base/lang',
 
+    'esri/geometry/Point',
     'esri/graphic',
     'esri/graphicsUtils',
     'esri/layers/ArcGISDynamicMapServiceLayer',
@@ -30,6 +31,7 @@ define([
     Color,
     lang,
 
+    Point,
     Graphic,
     graphicUtils,
     ArcGISDynamicMapServiceLayer,
@@ -104,7 +106,8 @@ define([
                     lang.hitch(this, 'zoom')),
                 topic.subscribe(config.topics.map.setExpression,
                     lang.hitch(this, 'setExpression')),
-                on.pausable(this.map, 'click', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
+                on.pausable(this.map, 'click', lang.partial(lang.hitch(this, 'query'), 'boundaries')),
+                topic.subscribe('agrc.widgets.locate.FindAddress.OnFind', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
             );
         },
         addLayerAndMakeVisible: function (props) {
@@ -281,8 +284,10 @@ define([
                 return layer.id === layerId;
             })[0].layer;
 
+            var point = evt.mapPoint || new Point(evt[0].location.x, evt[0].location.y, this.map.spatialReference);
+
             topic.publish(config.topics.events.search, {
-                point: evt.mapPoint,
+                point: point,
                 layer: layer
             });
         },
