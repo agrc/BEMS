@@ -23,10 +23,10 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
         apiKey: '',
 
         urls: {
-            vector: 'http://mapserv.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
-            boundaries: 'http://localhost/arcgis/rest/services/BEMS/Boundaries/MapServer/0',
+            vector: 'http://basemaps.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
+            boundaries: '/arcgis/rest/services/BEMS/Boundaries/MapServer/0',
             exportWebMap: '/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
-            redline: 'http://test.mapserv.utah.gov/BEMS'
+            redline: 'http://mapserv.utah.gov/BEMS'
         },
 
         filters: {
