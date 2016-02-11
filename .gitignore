@@ -6,6 +6,7 @@
 .grunt/
 deploy
 dist/
+src/agrc-jasmine-matchers/
 node_modules/
 secrets.json
 src/agrc/
@@ -15,6 +16,7 @@ src/dgrid/
 src/dijit/
 src/dojo/
 src/dojox/
+src/dstore/
 src/esri/
 src/favico.js/
 src/ijit/
@@ -22,6 +24,7 @@ src/jasmine-favicon-reporter/
 src/jasmine-jsreporter/
 src/jquery/
 src/ladda-bootstrap/
+src/layer-selector/
 src/mustache/
 src/put-selector/
 src/spin.js/

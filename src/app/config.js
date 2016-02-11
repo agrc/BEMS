@@ -1,9 +1,20 @@
 /* jshint maxlen:false */
-define(['dojo/has', 'esri/config'], function(has, esriConfig) {
+define([
+    'dojo/has',
+    'dojo/request/xhr',
+
+    'esri/config'
+], function(
+    has,
+    xhr,
+
+    esriConfig
+) {
     // force api to use CORS on mapserv thus removing the test request on app load
     // e.g. http://mapserv.utah.gov/ArcGIS/rest/info?f=json
     esriConfig.defaults.io.corsEnabledServers.push('mapserv.utah.gov');
     esriConfig.defaults.io.corsEnabledServers.push('basemaps.utah.gov');
+    esriConfig.defaults.io.corsEnabledServers.push('discover.agrc.utah.gov');
 
     window.AGRC = {
         // errorLogger: ijit.modules.ErrorLogger
@@ -23,7 +34,6 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
         apiKey: '',
 
         urls: {
-            vector: 'http://basemaps.utah.gov/arcgis/rest/services/BaseMaps/Vector/MapServer',
             boundaries: '/arcgis/rest/services/BEMS/Boundaries/MapServer/0',
             exportWebMap: '/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
             redline: 'http://mapserv.utah.gov/BEMS'
@@ -58,16 +68,26 @@ define(['dojo/has', 'esri/config'], function(has, esriConfig) {
         window.AGRC.apiKey = 'AGRC-810ECA1C598895';
         window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://mapserv.utah.gov');
         window.AGRC.urls.redline = 'http://mapserv.utah.gov/chalkdust';
+        window.AGRC.quadWord = 'alfred-plaster-crystal-dexter';
     } else if (has('agrc-api-key') === 'stage') {
         // test.mapserv.utah.gov
         window.AGRC.apiKey = 'AGRC-AC122FA9671436';
         window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://test.mapserv.utah.gov');
         window.AGRC.urls.redline = 'http://test.mapserv.utah.gov/chalkdust';
+        window.AGRC.quadWord = 'opera-event-little-pinball';
 
         esriConfig.defaults.io.corsEnabledServers.push('test.mapserv.utah.gov');
     } else {
         // localhost
-        window.AGRC.apiKey = 'AGRC-63E1FF17767822';
+        xhr(require.baseUrl + 'secrets.json', {
+            handleAs: 'json',
+            sync: true
+        }).then(function (secrets) {
+            window.AGRC.quadWord = secrets.quadWord;
+            window.AGRC.apiKey = secrets.apiKey;
+        }, function () {
+            throw 'Error getting quad word!';
+        });
         window.AGRC.urls.redline = 'http://localhost/projects/git/chalkdust';
     }
 

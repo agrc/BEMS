@@ -20,6 +20,7 @@
             'dgrid',
             'mustache',
             'put-selector',
+            'layer-selector',
             'xstyle',
             {
                 name: 'jquery',

@@ -61,6 +61,6 @@ var profile = {
     }],
     // this is to make sure that the widget templates get built into the layer file.
     userConfig: {
-        packages: ['app', 'dijit', 'dojox', 'agrc', 'ijit', 'esri']
+        packages: ['app', 'dijit', 'dojox', 'agrc', 'ijit', 'esri', 'layer-selector']
     }
 };

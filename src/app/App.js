@@ -117,12 +117,14 @@ define([
                 }, this.sidebarToggle),
                 new FindAddress({
                     map: MapController.map,
-                    apiKey: config.apiKey
+                    apiKey: config.apiKey,
+                    wkid: 3857,
+                    zoomLevel: 17
                 }, this.geocodeNode),
                 new MagicZoom({
                     map: MapController.map,
-                    mapServiceURL: config.urls.vector,
-                    searchLayerIndex: 4,
+                    apiKey: config.apiKey,
+                    wkid: 3857,
                     searchField: 'NAME',
                     placeHolder: 'point of interest',
                     maxResultsToDisplay: 10,
