@@ -1,6 +1,6 @@
 {
   "name": "BEMS",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "homepage": "https://mapserv.utah.gov/BEMS",
   "repository": {
     "type": "git",
@@ -9,21 +9,21 @@
   "license": "MIT",
   "devDependencies": {
     "dojo": "^1.10.2",
-    "grunt": "^0.4",
+    "grunt": "^1.0.1",
     "grunt-amdcheck": "^1.2.5",
     "grunt-bump": "^0",
-    "grunt-contrib-clean": "^0",
-    "grunt-contrib-compress": "^0.14.0",
-    "grunt-contrib-connect": "^0",
-    "grunt-contrib-copy": "^0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-compress": "^1.2.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-imagemin": "^1",
     "grunt-contrib-jasmine": "^1",
-    "grunt-contrib-jshint": "^0",
-    "grunt-contrib-watch": "^0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-dojo": "^1.0",
     "grunt-newer": "^1.1.1",
     "grunt-processhtml": "^0",
-    "grunt-ssh": "^0",
+    "grunt-ssh": "git+https://git@github.com/steveoh/grunt-ssh.git#0b7986c359a7fb60309d25668f0a78d5f0a0f178",
     "uglify-js": "^2.4.15"
   },
   "scripts": {
