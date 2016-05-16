@@ -267,7 +267,6 @@ module.exports = function(grunt) {
         'sshexec:stage'
     ]);
     grunt.registerTask('travis', [
-        'esri_slurp:travis',
         'jshint',
         'connect',
         'jasmine:main'

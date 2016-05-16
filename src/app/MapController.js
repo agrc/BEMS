@@ -337,7 +337,7 @@ define([
                 });
                 Object.keys(uniqueLayers).forEach(function (layer) {
                     uniqueLayers[layer].setDefinitionExpression('1=2');
-                    console.debug('def expression: ', layer.getDefinitionExpression());
+
                     uniqueLayers[layer].setVisibility(false);
                 });
             } else {
@@ -349,7 +349,7 @@ define([
 
                     layer.setDefinitionExpression(expressions.join(' AND '));
                     layer.setVisibility(true);
-                    console.debug('def expression: ', layer.getDefinitionExpression());
+
                     on.once(layer, 'update-end',  function (e) {
                         topic.publish(config.topics.events.updateEnd, e);
                     });

@@ -2,6 +2,7 @@ define([
     'agrc/widgets/locate/FindAddress',
     'agrc/widgets/locate/MagicZoom',
 
+    'app/ChangeRequest',
     'app/ClearReset',
     'app/config',
     'app/data/agencies',
@@ -24,12 +25,12 @@ define([
     'dojo/_base/array',
     'dojo/_base/declare',
 
-    'ijit/widgets/layout/SideBarToggler',
-    'ijit/widgets/notify/ChangeRequest'
+    'ijit/widgets/layout/SideBarToggler'
 ], function (
     FindAddress,
     MagicZoom,
 
+    ChangeRequest,
     ClearReset,
     config,
     agencies,
@@ -52,8 +53,7 @@ define([
     array,
     declare,
 
-    SideBarToggler,
-    ChangeRequest
+    SideBarToggler
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // summary:

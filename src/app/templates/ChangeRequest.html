@@ -1,0 +1,43 @@
+<div>
+    <form data-dojo-attach-point='formRedline'>
+        <div class="form-group">
+            <label class="control-label" for="btn_draw">Pinpoint Issue</label>
+            <div class="controls">
+                <button class="btn btn-warning btn-block" type="button" data-dojo-attach-point='btnRedline'><i class="icon-pencil icon-white"> </i> Pinpoint Issue</button>
+            </div>
+            <label class="control-label" for="${id}_txt_name">Name:</label>
+            <div class="controls">
+                <input type="text" class="form-control" id="${id}_txt_name" data-dojo-attach-point="txtName">
+                <span class="help-inline error">Required!</span>
+            </div>
+            <label class="control-label" for="${id}_txt_email">Email:</label>
+            <div class="controls">
+                <input type="email" class="form-control" id="${id}_txt_email" data-dojo-attach-point="txtEmail">
+                <span class="help-inline error">Required!</span>
+            </div>
+            <label class="control-label" for="${id}_txt_phone">Phone Number:</label>
+            <div class="controls">
+                <input type="tel" class="form-control" id="${id}_txt_phone" data-dojo-attach-point="txtPhone">
+                <span class="help-inline error">Required!</span>
+            </div>
+            <label class="control-label" for="${id}_txt_agency">Agency: <em>(not required)</em></label>
+            <div class="controls">
+                <input type="text" class="form-control" id="${id}_txt_agency" data-dojo-attach-point="txtAgency">
+            </div>
+            <label class="control-label" for="${id}_txt_description">Issue Description:</label>
+            <div class="controls">
+                <input type="text" class="form-control" id="${id}_txt_description" data-dojo-attach-point="txtDescription">
+                <span class="help-inline error">Required!</span>
+            </div>
+            <div class="controls">
+                <em>Please fill this out correctly</em>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-block" data-dojo-attach-point='btnSubmit'>Send</button>
+                <span data-dojo-attach-point='errorMsg' class="help-inline error">Uh oh!</span>
+            </div>
+        </div>
+    </form>
+</div>
