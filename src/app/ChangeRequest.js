@@ -37,10 +37,13 @@ define([
 
         // Properties to be sent into constructor
 
-        postCreate: function () {
-            // summary:
-            //      Overrides method of same name in dijit._Widget.
-            console.log('app.ChangeRequest::postCreate', arguments);
+        completed: function () {
+            console.info('app.ChangeRequest::completed', arguments);
+
+            this.txtAgency.value = '';
+            this.txtName.value = '';
+            this.txtEmail.value = '';
+            this.txtPhone.value = '';
 
             this.inherited(arguments);
         },
@@ -91,7 +94,6 @@ define([
 
             return validEmail && validPhone;
         },
-
         _invokeWebService: function () {
             // summary:
             //      calls the web service
@@ -143,7 +145,6 @@ define([
                 }
             });
         },
-
         /** gets the values from the form and formats them for the template.
          * @returns { name - string, email - string, phone - string, agency - string, description - string }
          */
@@ -172,7 +173,7 @@ define([
             };
 
             if (values.agency.length > 0) {
-                values.agency = 'with ' + values.agency.length;
+                values.agency = 'with ' + values.agency;
             }
 
             return values;
