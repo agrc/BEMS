@@ -8,7 +8,7 @@
             typeof window !== 'undefined' &&
             window.dojoConfig &&
             window.dojoConfig.isJasmineTestRunner
-            ) ? '/src': './',
+            ) ? '/src' : './',
         packages: [
             'agrc',
             'app',
@@ -18,6 +18,7 @@
             'esri',
             'ijit',
             'dgrid',
+            'moment',
             'mustache',
             'put-selector',
             'layer-selector',

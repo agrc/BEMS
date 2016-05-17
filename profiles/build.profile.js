@@ -2,7 +2,7 @@
 
 // Useful for tagging packages such as proj4 as AMD
 // to help the build system work with them better.
-var amdTag = function(filename, mid) {
+var amdTag = function (filename, mid) {
     return (/.*\.js$/).test(filename);
 };
 
@@ -58,6 +58,19 @@ var profile = {
         name: 'mustache',
         location: 'mustache',
         main: 'mustache'
+    }, {
+        name: 'moment',
+        location: 'moment',
+        main: 'moment',
+        trees: [
+            // don't bother with .hidden, tests, min, src, and templates
+            [".", ".", /(\/\.)|(~$)|(test|txt|src|min|templates)/]
+        ],
+        resourceTags: {
+            amd: function (filename, mid) {
+                return /\.js$/.test(filename);
+            }
+        }
     }],
     // this is to make sure that the widget templates get built into the layer file.
     userConfig: {
