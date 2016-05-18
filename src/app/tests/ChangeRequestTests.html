@@ -23,7 +23,11 @@
 
         require({
             baseUrl: baseUrl,
-            packages: ['app', 'esri', 'dojo', 'dijit', 'dojox', 'xstyle', 'ijit',
+            packages: ['app', 'esri', 'dojo', 'dijit', 'dojox', 'xstyle', 'ijit', 'agrc', 'moment', 'layer-selector', {
+                name: 'spin',
+                location: './spinjs',
+                main: 'spin'
+            },
             {
                 name: 'jquery',
                 location: 'jquery/dist',
