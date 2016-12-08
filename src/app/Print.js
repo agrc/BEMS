@@ -17,7 +17,7 @@ define([
     'dijit/_WidgetsInTemplateMixin',
 
     'app/config'
-], function(
+], function (
     template,
 
     declare,
@@ -49,7 +49,7 @@ define([
 
         map: null,
 
-        postCreate: function() {
+        postCreate: function () {
             // summary:
             //      Overrides method of same name in dijit._Widget.
             // tags:
@@ -83,37 +83,37 @@ define([
             this.setupConnections();
             this.inherited(arguments);
         },
-        setupConnections: function() {
+        setupConnections: function () {
             // summary:
             //      wire events, and such
             //
             console.log('app.Print::setupConnections', arguments);
 
-            var self = this;
-            this.printer.on('print-complete', function() {
-                domStyle.set(self.popupBlurb, 'display', 'block');
+            var that = this;
+            this.printer.on('print-complete', function () {
+                domStyle.set(that.popupBlurb, 'display', 'block');
             });
 
-            on(this.titleNode, 'input, keyup, paste', function(){
-                array.forEach(self.printer.templates, function(template){
-                    lang.setObject('layoutOptions.titleText', self.titleNode.value, template);
-                }, self);
+            on(this.titleNode, 'input, keyup, paste', function () {
+                array.forEach(that.printer.templates, function (t) {
+                    lang.setObject('layoutOptions.titleText', that.titleNode.value, t);
+                }, that);
             });
 
-            topic.subscribe(config.topics.events.setTitle, function(args) {
-                self.titleNode.value = args;
+            topic.subscribe(config.topics.events.setTitle, function (args) {
+                that.titleNode.value = args;
             });
         },
 
-        startup: function() {
+        startup: function () {
             // summary:
             //      Fires after postCreate when all of the child widgets are finished laying out.
             console.log('app.Print:startup', arguments);
 
-            var self = this;
-            array.forEach(this.childWidgets, function(widget) {
+            var that = this;
+            array.forEach(this.childWidgets, function (widget) {
                 console.log(widget.declaredClass);
-                self.own(widget);
+                that.own(widget);
                 widget.startup();
             });
         }

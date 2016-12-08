@@ -94,6 +94,7 @@ define([
             // clear reset sends no param
             if (!widget) {
                 this.selectNode.selectedIndex = 0;
+
                 return;
             }
 

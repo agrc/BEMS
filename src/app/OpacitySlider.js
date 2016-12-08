@@ -13,7 +13,7 @@ define([
 
 
     'dijit/form/HorizontalSlider'
-], function(
+], function (
     template,
 
     declare,
@@ -36,14 +36,14 @@ define([
 
         // Properties to be sent into constructor
 
-        postCreate: function() {
+        postCreate: function () {
             // summary:
             //      Overrides method of same name in dijit._Widget.
             console.log('app.OpacitySlider::postCreate', arguments);
 
             this.inherited(arguments);
         },
-        notifyMap: function(opacity) {
+        notifyMap: function (opacity) {
             // summary:
             //      tell the map controller to do stuff
             // opacity: Number

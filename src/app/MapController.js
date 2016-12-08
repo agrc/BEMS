@@ -94,7 +94,8 @@ define([
                     baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR']
                 }));
 
-            this.symbol = new LineSymbol(LineSymbol.STYLE_SOLID, new Color('#F012BE'), 3);
+            var size = 3;
+            this.symbol = new LineSymbol(LineSymbol.STYLE_SOLID, new Color('#F012BE'), size);
 
             this.layers = [];
 
@@ -117,7 +118,8 @@ define([
                 topic.subscribe(config.topics.map.setExpression,
                     lang.hitch(this, 'setExpression')),
                 on.pausable(this.map, 'click', lang.partial(lang.hitch(this, 'query'), 'boundaries')),
-                topic.subscribe('agrc.widgets.locate.FindAddress.OnFind', lang.partial(lang.hitch(this, 'query'), 'boundaries'))
+                topic.subscribe('agrc.widgets.locate.FindAddress.OnFind',
+                                lang.partial(lang.hitch(this, 'query'), 'boundaries'))
             );
         },
         addLayerAndMakeVisible: function (props) {
@@ -131,6 +133,7 @@ define([
             var lyr;
             var alreadyAdded = array.some(this.map.graphicsLayerIds, function (id) {
                 console.log('app.MapController::addLayerAndMakeVisible||looping ids ', id);
+
                 return id === props.id;
             }, this);
 
@@ -176,12 +179,13 @@ define([
             // opacity
             console.log('app.MapController::updateOpacity', arguments);
 
+            var fullScale = 100;
             if (opacity !== undefined) {
-                this.currentOpacity = opacity / 100;
+                this.currentOpacity = opacity / fullScale;
             }
 
             if (!this.activeLayer) {
-                //no layer selected yet return
+                // no layer selected yet return
                 return;
             }
 
@@ -218,6 +222,7 @@ define([
 
             if (args && args.length === 0) {
                 this.map.setDefaultExtent();
+
                 return;
             }
 
@@ -252,12 +257,13 @@ define([
             // params
             console.log('app.MapController::addLayerFilter', arguments);
 
-            var layer = array.filter(this.layers, function (layer) {
-                return layer.id === params.id;
+            var layer = array.filter(this.layers, function (l) {
+                return l.id === params.id;
             })[0];
 
             if (!layer) {
                 console.error('cant find layer with id: ' + params.id);
+
                 return;
             }
 
@@ -290,8 +296,8 @@ define([
             // evt
             console.log('app.MapControl::query', arguments);
 
-            var layer = array.filter(this.layers, function (layer) {
-                return layer.id === layerId;
+            var layer = array.filter(this.layers, function (l) {
+                return l.id === layerId;
             })[0].layer;
 
             var point = evt.mapPoint || new Point(evt[0].location.x, evt[0].location.y, this.map.spatialReference);
@@ -350,7 +356,7 @@ define([
                     layer.setDefinitionExpression(expressions.join(' AND '));
                     layer.setVisibility(true);
 
-                    on.once(layer, 'update-end',  function (e) {
+                    on.once(layer, 'update-end', function (e) {
                         topic.publish(config.topics.events.updateEnd, e);
                     });
                 });

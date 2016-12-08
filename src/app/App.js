@@ -105,7 +105,7 @@ define([
             this.changeRequest = new ChangeRequest({
                 map: MapController.map,
                 redliner: config.urls.redline,
-                toIds: [8, 9, 10, 11]
+                toIds: [8, 9, 10, 11]  // eslint-disable-line no-magic-numbers
             }, this.suggestChangeDiv);
 
             this.childWidgets.push(
@@ -128,7 +128,7 @@ define([
                     searchField: 'NAME',
                     placeHolder: 'point of interest',
                     maxResultsToDisplay: 10,
-                    'class': 'first'
+                    class: 'first'
                 }, this.gnisNode),
                 this.printer = new Print({
                     map: MapController.map

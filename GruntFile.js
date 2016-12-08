@@ -1,38 +1,37 @@
-/* jshint camelcase:false */
 module.exports = function (grunt) {
-    var jsFiles = 'src/app/**/*.js',
-        otherFiles = [
-            'src/app/**/*.html',
-            'src/app/**/*.css',
-            'src/index.html',
-            'src/ChangeLog.html'
-        ],
-        gruntFile = 'GruntFile.js',
-        internFile = 'tests/intern.js',
-        jshintFiles = [
-            jsFiles,
-            gruntFile,
-            internFile
-        ],
-        bumpFiles = [
-            'package.json',
-            'bower.json',
-            'src/app/package.json',
-            'src/app/config.js'
-        ],
-        deployFiles = [
-            '**',
-            '!build-report.txt',
-            '!util/**',
-            '!jasmine-favicon-reporter/**',
-            '!**/*.uncompressed.js',
-            '!**/*consoleStripped.js',
-            '!**/tests/**',
-            '!**/bootstrap/test-infra/**',
-            '!**/bootstrap/less/**'
-        ],
-        deployDir = 'wwwroot/BEMS',
-        secrets;
+    var jsFiles = 'src/app/**/*.js';
+    var otherFiles = [
+        'src/app/**/*.html',
+        'src/app/**/*.css',
+        'src/index.html',
+        'src/ChangeLog.html'
+    ];
+    var gruntFile = 'GruntFile.js';
+    var internFile = 'tests/intern.js';
+    var jshintFiles = [
+        jsFiles,
+        gruntFile,
+        internFile
+    ];
+    var bumpFiles = [
+        'package.json',
+        'bower.json',
+        'src/app/package.json',
+        'src/app/config.js'
+    ];
+    var deployFiles = [
+        '**',
+        '!build-report.txt',
+        '!util/**',
+        '!jasmine-favicon-reporter/**',
+        '!**/*.uncompressed.js',
+        '!**/*consoleStripped.js',
+        '!**/tests/**',
+        '!**/bootstrap/test-infra/**',
+        '!**/bootstrap/less/**'
+    ];
+    var deployDir = 'wwwroot/BEMS';
+    var secrets;
     try {
         secrets = grunt.file.readJSON('secrets.json');
     } catch (e) {
@@ -85,7 +84,7 @@ module.exports = function (grunt) {
             }
         },
         connect: {
-            uses_defaults: {}
+            uses_defaults: {} // eslint-disable-line camelcase
         },
         copy: {
             main: {
@@ -149,13 +148,12 @@ module.exports = function (grunt) {
                 }
             }
         },
-        jshint: {
-            main: {
-                // must use src for newer to work
-                src: jshintFiles
-            },
+        eslint: {
             options: {
-                jshintrc: '.jshintrc'
+                configFile: '.eslintrc'
+            },
+            main: {
+                src: jsFiles
             }
         },
         processhtml: {
@@ -211,10 +209,38 @@ module.exports = function (grunt) {
                 }
             }
         },
+        uglify: {
+            options: {
+                preserveComments: false,
+                sourceMap: true,
+                compress: {
+                    drop_console: true, // eslint-disable-line camelcase
+                    passes: 2,
+                    dead_code: true // eslint-disable-line camelcase
+                }
+            },
+            stage: {
+                options: {
+                    compress: {
+                        drop_console: false // eslint-disable-line camelcase
+                    }
+                },
+                src: ['dist/dojo/dojo.js'],
+                dest: 'dist/dojo/dojo.js'
+            },
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: 'dist',
+                    src: '**/*.js',
+                    dest: 'dist'
+                }]
+            }
+        },
         watch: {
-            jshint: {
+            js: {
                 files: jshintFiles,
-                tasks: ['newer:jshint:main', 'jasmine:main:build', 'amdcheck:main']
+                tasks: ['newer:eslint:main', 'jasmine:main:build', 'amdcheck:main']
             },
             src: {
                 files: jshintFiles.concat(otherFiles),
@@ -235,7 +261,7 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask('default', [
         'jasmine:main:build',
-        'newer:jshint:main',
+        'eslint',
         'amdcheck:main',
         'connect',
         'watch'
@@ -267,7 +293,7 @@ module.exports = function (grunt) {
         'sshexec:stage'
     ]);
     grunt.registerTask('travis', [
-        'jshint',
+        'eslint',
         'connect',
         'jasmine:main'
     ]);

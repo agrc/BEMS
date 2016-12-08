@@ -71,7 +71,7 @@ require([
                 var filters = [{
                     expression: 'a = b',
                     layer: layer
-                },{
+                }, {
                     expression: 'b = c',
                     layer: layer
                 }];
@@ -96,7 +96,7 @@ require([
                 var filters = [{
                     expression: '',
                     layer: layer
-                },{
+                }, {
                     expression: 'b = c',
                     layer: layer
                 }];
@@ -121,7 +121,7 @@ require([
                 var filters = [{
                     expression: 'a = b',
                     layer: layer
-                },{
+                }, {
                     expression: 'b = c',
                     layer: layer
                 }];
@@ -134,8 +134,9 @@ require([
 
                 widget.setExpression();
 
-                expect(layer.setDefinitionExpression.calls.count()).toEqual(2);
-                expect(layer.setVisibility.calls.count()).toEqual(2);
+                var callCount = 2;
+                expect(layer.setDefinitionExpression.calls.count()).toEqual(callCount);
+                expect(layer.setVisibility.calls.count()).toEqual(callCount);
 
                 expect(layer.setDefinitionExpression.calls.argsFor(0)).toEqual(['a = b AND b = c']);
                 expect(layer.setVisibility.calls.argsFor(0)).toEqual([true]);

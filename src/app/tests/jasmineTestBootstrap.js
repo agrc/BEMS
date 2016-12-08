@@ -1,12 +1,10 @@
-/* global JasmineFaviconReporter */
-/*jshint unused:false*/
+/* eslint-disable no-unused-vars, no-undef */
 var dojoConfig = {
-    // isDebug: false,
     isJasmineTestRunner: true,
     packages: [{
         name: 'matchers',
         location: 'matchers/src'
-    },{
+    }, {
         name: 'stubmodule',
         location: 'stubmodule/src',
         main: 'stub-module'

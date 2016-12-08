@@ -50,18 +50,19 @@ define([
 
             if (this.contentNode.children.length) {
                 domClass.toggle(this.contentNode, 'hidden');
+
                 return;
             }
 
             var that = this;
             request(config.urls.boundaries.replace('/0', '/Legend?f=json'),
-                 {
-                     handleAs: 'json'
-                 }).then(function success (response) {
-                        console.debug(response);
-                        that.buildLegend(response.layers);
-                    },
-                    function error (response) {
+                {
+                    handleAs: 'json'
+                }).then(function success(response) {
+                    console.debug(response);
+                    that.buildLegend(response.layers);
+                },
+                    function error(response) {
                         console.error(response);
                     }
                 );

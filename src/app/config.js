@@ -1,10 +1,9 @@
-/* jshint maxlen:false */
 define([
     'dojo/has',
     'dojo/request/xhr',
 
     'esri/config'
-], function(
+], function (
     has,
     xhr,
 
@@ -66,13 +65,15 @@ define([
     if (has('agrc-api-key') === 'prod') {
         // mapserv.utah.gov
         window.AGRC.apiKey = 'AGRC-810ECA1C598895';
-        window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://mapserv.utah.gov');
+        window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost',
+                                                                          'http://mapserv.utah.gov');
         window.AGRC.urls.redline = 'http://mapserv.utah.gov/chalkdust';
         window.AGRC.quadWord = 'alfred-plaster-crystal-dexter';
     } else if (has('agrc-api-key') === 'stage') {
         // test.mapserv.utah.gov
         window.AGRC.apiKey = 'AGRC-AC122FA9671436';
-        window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost', 'http://test.mapserv.utah.gov');
+        window.AGRC.urls.boundaries = window.AGRC.urls.boundaries.replace('http://localhost',
+                                                                          'http://test.mapserv.utah.gov');
         window.AGRC.urls.redline = 'http://test.mapserv.utah.gov/chalkdust';
         window.AGRC.quadWord = 'opera-event-little-pinball';
 

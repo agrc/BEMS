@@ -63,11 +63,11 @@ define([
             query('.control-group', this.domNode).removeClass('error');
 
             var isEmpty = array.every([
-                    this.txtName,
-                    this.txtEmail,
-                    this.txtPhone,
-                    this.txtDescription
-                ],
+                this.txtName,
+                this.txtEmail,
+                this.txtPhone,
+                this.txtDescription
+            ],
                 function (tb) {
                     return this._isValid(tb);
                 }, this);
@@ -78,11 +78,11 @@ define([
 
             var validEmail = webValidate.isEmailAddress(this.txtEmail.value);
 
-            if (!validEmail) {
+            if (validEmail) {
+                lang.setObject('AGRC.user.email', this.txtEmail.value, window);
+            } else {
                 query('span', this.txtEmail.parentElement).style('display', 'inline');
                 domClass.add(this.txtEmail.parentElement.parentElement, 'error');
-            } else {
-                lang.setObject('AGRC.user.email', this.txtEmail.value, window);
             }
 
             var validPhone = validate.isPhoneNumber(this.txtPhone.value);
@@ -106,10 +106,10 @@ define([
             console.info('app.ChangeRequest::_invokeWebService', arguments);
 
             var url = '/sendemailservice/notify';
-            var ids = this.toIds || [2];
+            var ids = this.toIds || [2]; // eslint-disable-line no-magic-numbers
 
             if (ids.length < 1) {
-                ids = [2];
+                ids = [2]; // eslint-disable-line no-magic-numbers
             }
 
             var templateValues = this._getValues();
@@ -125,7 +125,10 @@ define([
                         description: templateValues.description,
                         application: window.location.href,
                         basemap: this.map.layerIds[0],
-                        user: templateValues.name + ' (' + templateValues.email + ', ' + templateValues.phone + ') ' + templateValues.agency
+                        user: templateValues.name + ' (' +
+                              templateValues.email + ', ' +
+                              templateValues.phone + ') ' +
+                              templateValues.agency
                     }
                 }
             };

@@ -1,8 +1,8 @@
 define([], function () {
     return [{
-            name: ' ',
-            value: ''
-        },
+        name: ' ',
+        value: ''
+    },
         'AMBULANCE SERVICES OF TOOELE, LLC',
         'AMERICAN FORK CITY',
         'ATK LAUNCH SYSTEMS',

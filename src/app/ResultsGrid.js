@@ -99,7 +99,6 @@ define([
             }, this.domNode);
 
             this.grid.on('dgrid-select', function (events) {
-
                 var row = events.rows[0];
                 if (!row) {
                     return;
@@ -125,11 +124,11 @@ define([
             var data = result.target.graphics.map(function (feature) {
                 return {
                     // property names used here match those used when creating the dgrid
-                    'id': feature.attributes.OBJECTID,
-                    'name': feature.attributes.NAME,
-                    'service': feature.attributes.SERVICE_TYPE,
-                    'level': feature.attributes.SERVICE_LEVEL,
-                    'geometry': feature.geometry
+                    id: feature.attributes.OBJECTID,
+                    name: feature.attributes.NAME,
+                    service: feature.attributes.SERVICE_TYPE,
+                    level: feature.attributes.SERVICE_LEVEL,
+                    geometry: feature.geometry
                 };
             });
 
@@ -145,7 +144,7 @@ define([
             // args: { point - the map point click geometry, layer - the layer being queried }
             console.log('app.ResultsGrid::search', arguments);
 
-            var self = this;
+            var that = this;
             this.query.geometry = args.point;
             if (args.layer.layerDefinitions) {
                 this.query.where = args.layer.layerDefinitions[0];
@@ -164,26 +163,26 @@ define([
                 var data = array.map(results.features, function (feature) {
                     return {
                         // property names used here match those used when creating the dgrid
-                        'id': feature.attributes.OBJECTID,
-                        'name': feature.attributes.NAME,
-                        'service': feature.attributes.SERVICE_TYPE,
-                        'level': feature.attributes.SERVICE_LEVEL,
-                        'geometry': feature.geometry
+                        id: feature.attributes.OBJECTID,
+                        name: feature.attributes.NAME,
+                        service: feature.attributes.SERVICE_TYPE,
+                        level: feature.attributes.SERVICE_LEVEL,
+                        geometry: feature.geometry
                     };
                 });
 
-                self.store.data = data;
-                self.grid.refresh();
+                that.store.data = data;
+                that.grid.refresh();
 
-                domClass.remove(self.domNode, 'hide');
-                self.grid.startup();
+                domClass.remove(that.domNode, 'hide');
+                that.grid.startup();
             }, function () {
                 args.layer.setDefinitionExpression(priorQuery);
                 args.layer.setVisibility(true);
 
-                if (self.grid) {
-                    self.grid.store.data = null;
-                    self.grid.refresh();
+                if (that.grid) {
+                    that.grid.store.data = null;
+                    that.grid.refresh();
                 }
             });
         }
