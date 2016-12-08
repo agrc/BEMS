@@ -23,7 +23,7 @@
     "grunt-dojo": "^1.0",
     "grunt-newer": "^1.1.1",
     "grunt-processhtml": "^0",
-    "grunt-ssh": "git+https://git@github.com/steveoh/grunt-ssh.git#0b7986c359a7fb60309d25668f0a78d5f0a0f178",
+    "grunt-ssh": "^0",
     "uglify-js": "^2.4.15"
   },
   "scripts": {
