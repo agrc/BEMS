@@ -215,7 +215,7 @@ module.exports = function (grunt) {
                 sourceMap: true,
                 compress: {
                     drop_console: true, // eslint-disable-line camelcase
-                    passes: 2,
+                    passes: 3,
                     dead_code: true // eslint-disable-line camelcase
                 }
             },
@@ -270,6 +270,7 @@ module.exports = function (grunt) {
         'clean:build',
         'newer:imagemin:main',
         'dojo:prod',
+        'uglify:stage',
         'copy:main',
         'processhtml:main'
     ]);
@@ -277,6 +278,7 @@ module.exports = function (grunt) {
         'clean:build',
         'newer:imagemin:main',
         'dojo:stage',
+        'uglify:prod',
         'copy:main',
         'processhtml:main'
     ]);
