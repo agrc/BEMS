@@ -3,7 +3,7 @@
 '''
 BemsPallet.py
 
-A module that contains a pallet to update the querable layers behind our UTM basemaps
+A module that contains a pallet to update the BEMS applicaiton
 '''
 
 from forklift.models import Pallet
