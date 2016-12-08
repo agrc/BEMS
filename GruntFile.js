@@ -270,7 +270,7 @@ module.exports = function (grunt) {
         'clean:build',
         'newer:imagemin:main',
         'dojo:prod',
-        'uglify:stage',
+        'uglify:prod',
         'copy:main',
         'processhtml:main'
     ]);
@@ -278,7 +278,7 @@ module.exports = function (grunt) {
         'clean:build',
         'newer:imagemin:main',
         'dojo:stage',
-        'uglify:prod',
+        'uglify:stage',
         'copy:main',
         'processhtml:main'
     ]);
