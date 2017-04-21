@@ -17,7 +17,7 @@ class BemsPallet(Pallet):
 
         self.arcgis_services = [('BEMS/Boundaries', 'MapServer')]
 
-        self.destination_workspace = 'c:\\scheduled\\staging\\health.gdb'
+        self.destination_workspace = join(self.staging_rack, 'health.gdb')
         self.copy_data = [self.destination_workspace]
 
     def build(self, configuration=None):
