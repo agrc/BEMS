@@ -105,7 +105,7 @@ define([
             this.changeRequest = new ChangeRequest({
                 map: MapController.map,
                 redliner: config.urls.redline,
-                toIds: [8, 9, 10, 11]  // eslint-disable-line no-magic-numbers
+                toIds: [8, 9, 11]  // eslint-disable-line no-magic-numbers
             }, this.suggestChangeDiv);
 
             this.childWidgets.push(
